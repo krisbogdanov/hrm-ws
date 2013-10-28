@@ -2,6 +2,7 @@
     <wb-module deploy-name="hrm">
         <wb-resource deploy-path="/" source-path="/web" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/main-packages"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/test-packages"/>
         <property name="context-root" value="hrm"/>
         <property name="java-output-path" value="/hrm/build/classes"/>
     </wb-module>
