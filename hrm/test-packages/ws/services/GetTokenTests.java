@@ -3,7 +3,7 @@
  */
 package ws.services;
 
-import ws.services.Impl.GetTokenImpl;
+import ws.services.Impl.GetToken;
 import junit.framework.TestCase;
 
 /**
@@ -11,10 +11,12 @@ import junit.framework.TestCase;
  *
  */
 public class GetTokenTests extends TestCase {
-	
-	public void testGetToken() {
-		GetToken tokenGranter = new GetTokenImpl();
+	private final IGetToken tokenGranter = new GetToken();
+	public void testGetTokenNull() {
 		assertNull(tokenGranter.getToken(null, null));
+	}
+	public void testGetTokenNotNull() {
 		assertNotNull(tokenGranter.getToken("test", "test"));
 	}
+	
 }

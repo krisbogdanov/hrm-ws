@@ -15,7 +15,7 @@ public class InputValidatorImpl implements InputValidator {
 	 * @see ws.security.InputValidator#usernameValidation(java.lang.String)
 	 */
 	@Override
-	public boolean usernameValidation(String username) {
+	public boolean usernameValidation(final String username) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -24,7 +24,7 @@ public class InputValidatorImpl implements InputValidator {
 	 * @see ws.security.InputValidator#passwordValidation(java.lang.String)
 	 */
 	@Override
-	public boolean passwordValidation(String password) {
+	public boolean passwordValidation(final String password) {
 		// TODO Auto-generated method stub
 		return false;
 	}
