@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="GetTokenService" targetNamespace="http://Impl.services.ws/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://Impl.services.ws/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+<schema xmlns="http://www.w3.org/2001/XMLSchema">
+<import namespace="http://Impl.services.ws/" schemaLocation="gettoken_schema1.xsd"/>
+</schema>
+  </wsdl:types>
+  <wsdl:message name="getToken">
+    <wsdl:part name="parameters" element="tns:getToken">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getTokenResponse">
+    <wsdl:part name="parameters" element="tns:getTokenResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="GetToken">
+    <wsdl:operation name="getToken">
+      <wsdl:input name="getToken" message="tns:getToken">
+    </wsdl:input>
+      <wsdl:output name="getTokenResponse" message="tns:getTokenResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="GetTokenServiceSoapBinding" type="tns:GetToken">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getToken">
+      <soap:operation soapAction="urn:GetToken" style="document"/>
+      <wsdl:input name="getToken">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getTokenResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="GetTokenService">
+    <wsdl:port name="GetTokenPort" binding="tns:GetTokenServiceSoapBinding">
+      <soap:address location="http://localhost:9090/GetTokenPort"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

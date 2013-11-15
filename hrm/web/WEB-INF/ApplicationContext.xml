@@ -13,9 +13,4 @@
     	   
     <context:annotation-config/>
     <context:component-scan base-package="ws"/>
-	<bean id="dbConnection" class="ws.utils.Impl.DatabaseConnectionImpl" scope="singleton">
-		<constructor-arg index="0" value="hr" />
-		<constructor-arg index="1" value="root" />
-		<constructor-arg index="2" value="m325bp" />
-	</bean>
 </beans>
