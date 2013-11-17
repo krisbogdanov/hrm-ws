@@ -13,6 +13,7 @@ import javax.xml.ws.ResponseWrapper;
 import ws.security.Authenticator;
 import ws.security.Impl.AuthenticatorImpl;
 import ws.services.IGetToken;
+import ws.utils.Impl.HRConstants;
 
 /**
  * @author Kristiyan
@@ -20,6 +21,7 @@ import ws.services.IGetToken;
  */
 @WebService(targetNamespace = "http://Impl.services.ws/", portName = "GetTokenPort", serviceName = "GetTokenService")
 public class GetToken implements IGetToken {
+	
 	
 	private final Authenticator authenticator = new AuthenticatorImpl();
 	/* (non-Javadoc)
@@ -36,7 +38,7 @@ public class GetToken implements IGetToken {
 		if(authenticator.authenticate(username, password)) {
 			return UUID.randomUUID().toString().toUpperCase();
 		} else {
-			return "Access Denied!";
+			return HRConstants.ACCESS_DENIED;
 		}
 	}
 }

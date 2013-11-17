@@ -5,6 +5,7 @@ package ws.services.Impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
@@ -15,6 +16,7 @@ import javax.xml.ws.ResponseWrapper;
 
 import ws.services.IAddEmployee;
 import ws.utils.Impl.DatabaseConnection;
+import ws.utils.Impl.HRConstants;
 
 /**
  * @author Kristiyan
@@ -22,9 +24,8 @@ import ws.utils.Impl.DatabaseConnection;
  */
 @WebService(targetNamespace = "http://Impl.services.ws/", portName = "AddEmployeePort", serviceName = "AddEmployeeService")
 public class AddEmployee implements IAddEmployee {
-	
-//	private DatabaseConnection db = new DatabaseConnectionImpl("hr", "root", "m325bp");
-	private Connection connection = DatabaseConnection.getConnection();
+    
+	private final Connection connection = DatabaseConnection.getConnection();
 	/* (non-Javadoc)
 	 * @see ws.services.IAddEmployee#addEmployee(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
 	 */
@@ -36,18 +37,28 @@ public class AddEmployee implements IAddEmployee {
 			final String employeeEmail, final String employeeAddress,
 			final String employeeSSN, final String employeePhone) {
 		try {
-			Date employeeJoined = new Date();
-			PreparedStatement insertStatement = connection
-					.prepareStatement("INSERT INTO hr.employee values (default, ?, ?, ?, ?, ?, ?, ?);");
-			insertStatement.setString(1, employeeName);
-			insertStatement.setString(2, employeeSurname);
-			insertStatement.setString(3, employeeEmail);
-			insertStatement.setString(4, employeeAddress);
-			insertStatement.setString(5, employeeSSN);
-			insertStatement.setString(6, employeePhone);
-			insertStatement.setObject(7, employeeJoined);
-			insertStatement.executeUpdate();
-			return "Success";
+			
+			PreparedStatement checkStatement = connection
+					.prepareStatement(HRConstants.SELECT_EMPLOYEE_BY_EMAIL_STATEMENT);
+			checkStatement.setString(1, employeeEmail);
+			ResultSet resultSet = checkStatement.executeQuery();
+			if(resultSet.first()) {
+				return HRConstants.EMPLOYEE_ALREADY_ADDED;
+			} else {
+				Date employeeJoined = new Date();
+				
+				PreparedStatement insertStatement = connection
+						.prepareStatement(HRConstants.INSERT_EMPLOYEE_STATEMENT);
+				insertStatement.setString(1, employeeName);
+				insertStatement.setString(2, employeeSurname);
+				insertStatement.setString(3, employeeEmail);
+				insertStatement.setString(4, employeeAddress);
+				insertStatement.setString(5, employeeSSN);
+				insertStatement.setString(6, employeePhone);
+				insertStatement.setObject(7, employeeJoined);
+				insertStatement.executeUpdate();
+				return HRConstants.INSERT_SUCCESS;
+			}
 		  } catch (SQLException e) {
 			  e.printStackTrace();
 			  return null;

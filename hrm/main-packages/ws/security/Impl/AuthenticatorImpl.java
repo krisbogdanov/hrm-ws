@@ -20,10 +20,14 @@ public class AuthenticatorImpl implements Authenticator {
 	 */
 	@Override
 	public boolean authenticate(final String username, final String password) {
-		if(username.equals(u) && password.equals(p)) {
-			return true;
-		} else {
+		if(username == null || password == null) {
 			return false;
+		} else {
+			if(username.equals(u) && password.equals(p)) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 	}
 
