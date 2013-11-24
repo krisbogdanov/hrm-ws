@@ -1,5 +1,7 @@
 package ws.services;
 
+import org.junit.Test;
+
 import ws.services.Impl.AddEmployee;
 import ws.utils.Impl.HRConstants;
 import junit.framework.TestCase;
@@ -19,11 +21,13 @@ public class AddEmployeeTests extends TestCase {
 	 * Meaning that the test event will already be added so only the second
 	 * test will succeed unless the event is deleted from the database.
 	 */
+	@Test
 	public void testAddEmployeeEqualsSuccess() {
 	  String result = addEmpl.addEmployee(empName, empSurname, empEmail,
 			  empAddress, empSSN, empPhone);
 	  assertEquals(HRConstants.INSERT_SUCCESS, result);
 	}
+	@Test
 	public void testAddEmployeeEqualsAlreadyAdded() {
 	  String result = addEmpl.addEmployee(empName, empSurname, empEmail,
 				  empAddress, empSSN, empPhone);

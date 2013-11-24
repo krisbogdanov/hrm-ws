@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="AddEventService" targetNamespace="http://Impl.services.ws/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://Impl.services.ws/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+<schema xmlns="http://www.w3.org/2001/XMLSchema">
+<import namespace="http://Impl.services.ws/" schemaLocation="addevent_schema1.xsd"/>
+</schema>
+  </wsdl:types>
+  <wsdl:message name="addEventResponse">
+    <wsdl:part name="parameters" element="tns:addEventResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addEvent">
+    <wsdl:part name="parameters" element="tns:addEvent">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="AddEvent">
+    <wsdl:operation name="addEvent">
+      <wsdl:input name="addEvent" message="tns:addEvent">
+    </wsdl:input>
+      <wsdl:output name="addEventResponse" message="tns:addEventResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AddEventServiceSoapBinding" type="tns:AddEvent">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="addEvent">
+      <soap:operation soapAction="urn:AddEvent" style="document"/>
+      <wsdl:input name="addEvent">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="addEventResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AddEventService">
+    <wsdl:port name="AddEventPort" binding="tns:AddEventServiceSoapBinding">
+      <soap:address location="http://localhost:9090/AddEventPort"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -5,6 +5,8 @@ package ws.services;
 
 import java.util.Date;
 
+import org.junit.Test;
+
 import ws.services.Impl.AddEvent;
 import ws.utils.Impl.HRConstants;
 import junit.framework.TestCase;
@@ -26,12 +28,13 @@ public class AddEventTests extends TestCase {
 	 * Meaning that the test event will already be added so only the second
 	 * test will succeed unless the event is deleted from the database.
 	 */
+	@Test
 	public void testAddEventEqualsSuccess() {
 		String result = addEvent.addEvent(eventName, eventLocation,
 				eventDate, eventDurationInMinutes, eventCapacity);
 		assertEquals(HRConstants.INSERT_SUCCESS, result);
 	}
-	
+	@Test
 	public void testAddEventEqualsEventAlreadyAdded() {
 		String result = addEvent.addEvent(eventName, eventLocation,
 				eventDate, eventDurationInMinutes, eventCapacity);

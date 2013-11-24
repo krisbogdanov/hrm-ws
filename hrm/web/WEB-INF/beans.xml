@@ -21,4 +21,12 @@
 			<bean class="org.apache.cxf.feature.LoggingFeature" />
 		</jaxws:features>
 	</jaxws:endpoint>
+	<jaxws:endpoint xmlns:tns="http://Impl.services.ws/" id="addevent"
+		implementor="ws.services.Impl.AddEvent" wsdlLocation="wsdl/addevent.wsdl"
+		endpointName="tns:AddEventPort" serviceName="tns:AddEventService"
+		address="/AddEventPort">
+		<jaxws:features>
+			<bean class="org.apache.cxf.feature.LoggingFeature" />
+		</jaxws:features>
+	</jaxws:endpoint>
 </beans>

@@ -1,5 +1,7 @@
 package ws.services;
 
+import org.junit.Test;
+
 import ws.services.Impl.AddStudent;
 import ws.utils.Impl.HRConstants;
 import junit.framework.TestCase;
@@ -15,10 +17,12 @@ public class AddStudentTests extends TestCase {
 	 * Meaning that the test event will already be added so only the second
 	 * test will succeed unless the event is deleted from the database.
 	 */
+	@Test
 	public void testAddStudentEqualsSuccess() {
 		String result = addStudent.addStudent(studentName, studentSurname, studentEmail);
 		assertEquals(HRConstants.INSERT_SUCCESS, result);
 	}
+	@Test
 	public void testAddStudentEqualsAlreadyAdded() {
 		String result = addStudent.addStudent(studentName, studentSurname, studentEmail);
 		assertEquals(HRConstants.STUDENT_ALREADY_ADDED, result);
