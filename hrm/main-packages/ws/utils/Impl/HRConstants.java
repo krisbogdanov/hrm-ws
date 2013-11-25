@@ -17,22 +17,27 @@ public class HRConstants {
 	public static final String EMPLOYEE_ALREADY_ADDED = "Employee already added";
 	public static final String EVENT_ALREADY_ADDED = "Event already added";
 	public static final String STUDENT_ALREADY_ADDED = "Student already added";
+	public static final String STUDENT_ALREADY_REGISTERED = "Student already registered";
+	public static final String SELECT_REGISTRATION_BY_IDS = 
+			"SELECT * FROM hr.StudentToEvent WHERE studentId = ? AND eventId = ?;";
 	public static final String SELECT_EMPLOYEE_BY_EMAIL_STATEMENT = 
-			"SELECT employeeEmail FROM hr.employee WHERE employeeEmail = ?;";
+			"SELECT employeeEmail FROM hr.Employee WHERE employeeEmail = ?;";
+	public static final String INSERT_STUDENT_TO_EVENT = 
+			"INSERT INTO hr.StudentToEvent VALUES(default, ?, ?);";
 	public static final String INSERT_EMPLOYEE_STATEMENT = 
-    		"INSERT INTO hr.employee VALUES (default, ?, ?, ?, ?, ?, ?, ?);";
+    		"INSERT INTO hr.Employee VALUES (default, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 	public static final String INSERT_EVENT_STATEMENT = 
-			"INSERT INTO hr.event VALUES(default, ?, ?, ?, ?, ?);";
+			"INSERT INTO hr.Event VALUES(default, ?, ?, ?, ?, ?);";
 	public static final String SELECT_EVENT_BY_NAME_STATEMENT =
-			"SELECT eventName FROM hr.event WHERE eventName = ?;";
+			"SELECT eventName FROM hr.Event WHERE eventName = ?;";
 	public static final String INSERT_STUDENT_STATEMENT = 
-			"INSERT INTO hr.student VALUES (default, ?, ?, ?, ?);";
+			"INSERT INTO hr.Student VALUES (default, ?, ?, ?, ?);";
 	public static final String SELECT_STUDENT_BY_EMAIL_STATEMENT =
-			"SELECT studentEmail FROM hr.student WHERE studentEmail = ?;";
+			"SELECT studentEmail FROM hr.Student WHERE studentEmail = ?;";
 	public static final String DELETE_EMPLOYEE_BY_EMAIL = 
-			"DELETE FROM hr.employee WHERE employeeEmail = ?;";
+			"DELETE FROM hr.Employee WHERE employeeEmail = ?;";
 	public static final String DELETE_STUDENT_BY_EMAIL = 
-			"DELETE FROM hr.student WHERE studentEmail = ?;";
+			"DELETE FROM hr.Student WHERE studentEmail = ?;";
 	public static final String DELETE_EVENT_BY_NAME = 
-			"DELETE FROM hr.event WHERE eventName = ?;";
+			"DELETE FROM hr.Event WHERE eventName = ?;";
 }

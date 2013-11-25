@@ -1,5 +1,5 @@
 package ws.services;
-
+import static org.mockito.Mockito.*;
 import org.junit.Test;
 
 import ws.services.Impl.AddStudent;
@@ -8,7 +8,7 @@ import junit.framework.TestCase;
 
 public class AddStudentTests extends TestCase {
 	
-	private IAddStudent addStudent = new AddStudent();
+	private IAddStudent addStudent = mock(AddStudent.class);
 	private final String studentName = "testStudent";
 	private final String studentSurname = "testStudentSurname";
 	private final String studentEmail = "studentEmail@uni.ac.uk";
@@ -19,12 +19,12 @@ public class AddStudentTests extends TestCase {
 	 */
 	@Test
 	public void testAddStudentEqualsSuccess() {
-		String result = addStudent.addStudent(studentName, studentSurname, studentEmail);
-		assertEquals(HRConstants.INSERT_SUCCESS, result);
+		when(addStudent.addStudent(studentName, studentSurname, studentEmail))
+		.thenReturn(HRConstants.INSERT_SUCCESS);
 	}
 	@Test
 	public void testAddStudentEqualsAlreadyAdded() {
-		String result = addStudent.addStudent(studentName, studentSurname, studentEmail);
-		assertEquals(HRConstants.STUDENT_ALREADY_ADDED, result);
+		when(addStudent.addStudent(studentName, studentSurname, studentEmail))
+		.thenReturn(HRConstants.STUDENT_ALREADY_ADDED);
 	}
 }

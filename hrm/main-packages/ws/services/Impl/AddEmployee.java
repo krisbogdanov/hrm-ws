@@ -35,7 +35,9 @@ public class AddEmployee implements IAddEmployee {
 	@Override
 	public String addEmployee(final String employeeName, final String employeeSurname,
 			final String employeeEmail, final String employeeAddress,
-			final String employeeSSN, final String employeePhone) {
+			final String employeeSSN, final String employeePhone,
+			final int employeeType, final String employeeUsername,
+			final String employeePassword) {
 		try {
 			
 			PreparedStatement checkStatement = connection
@@ -56,6 +58,9 @@ public class AddEmployee implements IAddEmployee {
 				insertStatement.setString(5, employeeSSN);
 				insertStatement.setString(6, employeePhone);
 				insertStatement.setObject(7, employeeJoined);
+				insertStatement.setInt(8, employeeType);
+				insertStatement.setString(9, employeeUsername);
+				insertStatement.setString(10, employeePassword);
 				insertStatement.executeUpdate();
 				return HRConstants.INSERT_SUCCESS;
 			}

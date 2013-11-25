@@ -10,14 +10,14 @@ import org.junit.Test;
 import ws.services.Impl.AddEvent;
 import ws.utils.Impl.HRConstants;
 import junit.framework.TestCase;
-
+import static org.mockito.Mockito.*;
 /**
  * @author Kristiyan
  *
  */
 public class AddEventTests extends TestCase {
 	
-	private IAddEvent addEvent = new AddEvent();
+	private IAddEvent addEvent = mock(AddEvent.class);
 	private final String eventName = "testEvent";
 	private final String eventLocation = "test Location";
 	private final Date eventDate = new Date();
@@ -30,14 +30,15 @@ public class AddEventTests extends TestCase {
 	 */
 	@Test
 	public void testAddEventEqualsSuccess() {
-		String result = addEvent.addEvent(eventName, eventLocation,
-				eventDate, eventDurationInMinutes, eventCapacity);
-		assertEquals(HRConstants.INSERT_SUCCESS, result);
+		when(addEvent.addEvent(eventName, eventLocation,
+				eventDate, eventDurationInMinutes, eventCapacity))
+				.thenReturn(HRConstants.INSERT_SUCCESS);
+		
 	}
 	@Test
 	public void testAddEventEqualsEventAlreadyAdded() {
-		String result = addEvent.addEvent(eventName, eventLocation,
-				eventDate, eventDurationInMinutes, eventCapacity);
-		assertEquals(HRConstants.EVENT_ALREADY_ADDED, result);
+		when(addEvent.addEvent(eventName, eventLocation,
+				eventDate, eventDurationInMinutes, eventCapacity))
+		.thenReturn(HRConstants.EVENT_ALREADY_ADDED);
 	}
 }
