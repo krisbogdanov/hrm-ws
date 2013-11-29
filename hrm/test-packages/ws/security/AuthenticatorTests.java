@@ -3,7 +3,7 @@
  */
 package ws.security;
 
-import ws.security.Impl.AuthenticatorImpl;
+import ws.security.Impl.AuthenticationManagerImpl;
 import junit.framework.TestCase;
 
 /**
@@ -12,7 +12,7 @@ import junit.framework.TestCase;
  */
 public class AuthenticatorTests extends TestCase {
 	
-	private final Authenticator auth = new AuthenticatorImpl();
+	private final AuthenticationManager auth = new AuthenticationManagerImpl();
 	
 	public void testAuthenticateNotNull() {
 		assertNotNull(auth.authenticate(null, null));

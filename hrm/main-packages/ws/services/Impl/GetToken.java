@@ -10,8 +10,8 @@ import javax.jws.WebService;
 import javax.xml.ws.RequestWrapper;
 import javax.xml.ws.ResponseWrapper;
 
-import ws.security.Authenticator;
-import ws.security.Impl.AuthenticatorImpl;
+import ws.security.AuthenticationManager;
+import ws.security.Impl.AuthenticationManagerImpl;
 import ws.services.IGetToken;
 import ws.utils.Impl.HRConstants;
 
@@ -23,7 +23,7 @@ import ws.utils.Impl.HRConstants;
 public class GetToken implements IGetToken {
 	
 	
-	private final Authenticator authenticator = new AuthenticatorImpl();
+	private final AuthenticationManager authenticator = new AuthenticationManagerImpl();
 	/* (non-Javadoc)
 	 * @see ws.services.GetToken#getToken(java.lang.String, java.lang.String)
 	 */
