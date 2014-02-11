@@ -3,6 +3,9 @@
  */
 package ws.security;
 
+import org.junit.Test;
+
+import ws.dao.Employee;
 import ws.security.Impl.AuthenticationManagerImpl;
 import junit.framework.TestCase;
 
@@ -13,20 +16,16 @@ import junit.framework.TestCase;
 public class AuthenticatorTests extends TestCase {
 	
 	private final AuthenticationManager auth = new AuthenticationManagerImpl();
-	
-	public void testAuthenticateNotNull() {
-		assertNotNull(auth.authenticate(null, null));
+	private final String testUser = "saraf";
+	private final String testPassword = "mypass";
+	@Test
+	public void testAuthenticateSuccess() {
+		Employee emp = auth.authenticate(testUser, testPassword);
+		assertNotNull(emp);
 	}
-	public void testAuthenticateEqualsFalse() {
-		assertEquals(false, auth.authenticate(null, null));
-	}
-	public void testAuthenticateAssertTrue() {
-		assertTrue(auth.authenticate("test", "test"));
-	}
-	public void testAuthenticateWithWrongUser() {
-		assertEquals(false, auth.authenticate("wrong", "test"));
-	}
-	public void testAuthenticateWithWrongPass() {
-		assertEquals(false, auth.authenticate("test", "wrong"));
+	@Test
+	public void testAuthenticateFail() {
+		Employee emp = auth.authenticate("saaraaf", testPassword);
+		assertNull(emp);
 	}
 }

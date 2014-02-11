@@ -1,5 +1,7 @@
 package ws.security;
 
+import ws.dao.Employee;
+
 public interface AuthenticationManager {
-	public boolean authenticate(final String username, final String password);
+	public Employee authenticate(final String username, final String password);
 }

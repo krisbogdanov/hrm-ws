@@ -124,7 +124,7 @@ public class HRConstants {
 			"SELECT * FROM hr.EmployeeToGradTraining WHERE employeeId = ? AND gradTrainingId = ?;";
 	public static final String UPDATE_EMPLOYEE_BY_ID = 
 			"UPDATE hr.Employee SET employeeName = ?, employeeSurname = ?, employeeEmail = ?, employeeAddress = ?," +
-			" employeeSSN = ?, employeePhone = ?, employeeDepartment = ?, employeeUsername = ?, employeeRole = ?" +
+			" employeeSSN = ?, employeePhone = ?, employeeDepartment = ?, employeeRole = ?, employeeUsername = ?" +
 			" WHERE employeeId = ?;";
 	public static final String UPDATE_EMPLOYEE_PASSWORD = 
 			"UPDATE hr.Employee SET employeePassword = ? WHERE employeeId = ?;";
@@ -137,4 +137,6 @@ public class HRConstants {
 	public static final String UPDATE_BANK_DETAILS_BY_EMPLOYEE_ID =
 			"UPDATE hr.BankDetails SET bankName = ?, accountNumber = ?, sortCode = ?" +
 			" WHERE employeeId = ?;";
+	public static final String SELECT_DEPARTMENT_BY_ID =
+			"SELECT department FROM hr.EmployeeDepartment WHERE departmentId = ?;";
 }
