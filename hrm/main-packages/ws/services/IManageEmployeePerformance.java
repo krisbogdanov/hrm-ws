@@ -3,6 +3,8 @@
  */
 package ws.services;
 
+import java.util.List;
+
 import ws.dao.EmployeePerformance;
 
 /**
@@ -21,11 +23,11 @@ public interface IManageEmployeePerformance {
 	 * @param year
 	 * @return
 	 */
-	public int editEmployeePerformance(final String token, final int employeeId,
-			final String perfDescription, final int year);
+	public int editEmployeePerformance(final String token, final int perfId,
+			final String perfDescription);
 	
-	public int removeEmployeePerformanceByEmployeeId(final String token, final int employeeId);
+	public int removeEmployeePerformanceByPerfId(final String token, final int perfId);
 	
-	public EmployeePerformance getEmployeePerformanceByEmployeeId(final String token,
+	public List<EmployeePerformance> getEmployeePerformanceByEmployeeId(final String token,
 			final int employeeId);
 }

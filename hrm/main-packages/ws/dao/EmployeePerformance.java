@@ -84,5 +84,15 @@ public class EmployeePerformance {
 	public void setPerfYear(int perfYear) {
 		this.perfYear = perfYear;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "EmployeePerformance [perfId=" + perfId + ", employeeId="
+				+ employeeId + ", perfDescription=" + perfDescription
+				+ ", perfYear=" + perfYear + "]";
+	}
 	
 }

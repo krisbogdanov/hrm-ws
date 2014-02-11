@@ -73,5 +73,16 @@ public class Student {
 	public void setStudentRegistered(Date studentRegistered) {
 		this.studentRegistered = studentRegistered;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Student [studentId=" + studentId + ", studentName="
+				+ studentName + ", studentSurname=" + studentSurname
+				+ ", studentEmail=" + studentEmail + ", studentRegistered="
+				+ studentRegistered + "]";
+	}
 	
 }

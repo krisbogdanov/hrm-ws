@@ -82,5 +82,17 @@ public class Event {
 	public void setEventCapacity(int eventCapacity) {
 		this.eventCapacity = eventCapacity;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Event [eventId=" + eventId + ", eventName=" + eventName
+				+ ", eventLocation=" + eventLocation + ", eventDate="
+				+ eventDate + ", eventDurationInMinutes="
+				+ eventDurationInMinutes + ", eventCapacity=" + eventCapacity
+				+ "]";
+	}
 	
 }

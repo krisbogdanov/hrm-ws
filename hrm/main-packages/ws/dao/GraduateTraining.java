@@ -86,5 +86,16 @@ public class GraduateTraining {
 	public void setGradTrainingEnds(Date gradTrainingEnds) {
 		this.gradTrainingEnds = gradTrainingEnds;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "GraduateTraining [gradTrainingId=" + gradTrainingId
+				+ ", gradTrainingLocation=" + gradTrainingLocation
+				+ ", gradTrainingStarts=" + gradTrainingStarts
+				+ ", gradTrainingEnds=" + gradTrainingEnds + "]";
+	}
 	
 }

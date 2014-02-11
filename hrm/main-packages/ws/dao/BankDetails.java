@@ -101,6 +101,16 @@ public class BankDetails {
 	public void setSortCode(int sortCode) {
 		this.sortCode = sortCode;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "BankDetails [bankDetailsId=" + bankDetailsId + ", employeeId="
+				+ employeeId + ", bankName=" + bankName + ", accountNumber="
+				+ accountNumber + ", sortCode=" + sortCode + "]";
+	}
 	
 	
 }

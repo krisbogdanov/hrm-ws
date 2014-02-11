@@ -17,7 +17,7 @@ public interface IManageEvent {
 			final String eventLocation, final Date eventDate,
 			final int eventDurationInMinutes, final int eventCapacity);
 	public int removeEventByName(final String token, final String eventName);
-	public int editEventById(final String token, final String eventName,
+	public int editEventById(final String token,int eventId, final String eventName,
 			final String eventLocation, final Date eventDate,
 			final int eventDurationInMinutes, final int eventCapacity);
 	public Event getEventByName(final String token, final String eventName);
