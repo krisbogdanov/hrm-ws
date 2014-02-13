@@ -23,9 +23,7 @@ import ws.utils.Impl.HRConstants;
  */
 public class ManageToken implements IManageToken {
 	
-	
-	
-	
+	private static final String SELECT_TOKEN_BY_EMPLOYEE_ID = "SELECT * FROM hr.Token WHERE employeeId = ?;";
 	private static final String DELETE_TOKEN = "DELETE FROM hr.Token WHERE token = ?;";
 	private static final String INSERT_TOKEN = "INSERT INTO hr.Token VALUES(?, ?, ?, ?);";
 	private final AuthenticationManager authenticator = new AuthenticationManagerImpl();
@@ -44,6 +42,13 @@ public class ManageToken implements IManageToken {
 			String token = UUID.randomUUID().toString().toUpperCase();
 			Date expires = new Date(System.currentTimeMillis() + 86400 * 1000 * 2); //48 hours from now
 			try {
+				//does the employee have a token already?
+				PreparedStatement oldToken = connection.prepareStatement(SELECT_TOKEN_BY_EMPLOYEE_ID);
+				oldToken.setInt(1, employee.getEmployeeId());
+				ResultSet oldTokenResult = oldToken.executeQuery();
+				if(oldTokenResult.next()) {
+					deleteToken(oldTokenResult.getString(HRConstants.TOKEN));
+				}
 				int permissions = 0; //read only
 				PreparedStatement department = connection.
 						prepareStatement(HRConstants.SELECT_DEPARTMENT_BY_ID);

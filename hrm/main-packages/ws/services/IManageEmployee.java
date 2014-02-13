@@ -32,7 +32,7 @@ public interface IManageEmployee {
 	
 	public Employee getEmployeeByUsername(final String token, final String employeeUsername);
 	public Employee getEmployeeById(final String token, final int employeeId);
-	public List<Employee> searchEmployeeByName(final String token, final String searchPhrase, boolean sqlInjection);
+	public List<Employee> searchEmployeeByName(final String token, final String searchPhrase, boolean secure);
 	
 	public List<Employee> getAllEmployees(final String token);
 	

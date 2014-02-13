@@ -8,6 +8,11 @@ package ws.utils.Impl;
  *
  */
 public class HRConstants {
+	public static final String WRITE = "1";
+	public static final String READ = "0";
+	public static final String TOKEN = "token";
+	public static final String TOKEN_EXPIRE = "tokenExpire";
+	public static final String PERMISSIONS = "permissions";
 	public static final String BANK_DETAILS_ID = "bankDetailsId";
 	public static final String BANK_NAME = "bankName";
 	public static final String ACCOUNT_NUMBER = "accountNumber";
