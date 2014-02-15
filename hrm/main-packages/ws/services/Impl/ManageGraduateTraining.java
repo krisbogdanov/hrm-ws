@@ -36,17 +36,21 @@ public class ManageGraduateTraining implements IManageGraduateTraining {
 				if(gradTraining != null) {
 					return 0;
 				} else {
-					PreparedStatement insertStatement = connection.
-							prepareStatement(HRConstants.INSERT_GRAD_TRAINING_STATEMENT);
-					insertStatement.setString(0, location);
-					insertStatement.setObject(1, starts);
-					insertStatement.setObject(2, ends);
-					int result = insertStatement.executeUpdate();
-					insertStatement.close();
-					if(result == 0) {
+					if(starts.equals(ends)) {
 						return 0;
 					} else {
-						return 1;
+						PreparedStatement insertStatement = connection.
+								prepareStatement(HRConstants.INSERT_GRAD_TRAINING_STATEMENT);
+						insertStatement.setString(1, location);
+						insertStatement.setObject(2, starts);
+						insertStatement.setObject(3, ends);
+						int result = insertStatement.executeUpdate();
+						insertStatement.close();
+						if(result == 0) {
+							return 0;
+						} else {
+							return 1;
+						}
 					}
 				}
 			} else {
@@ -66,11 +70,11 @@ public class ManageGraduateTraining implements IManageGraduateTraining {
 				
 				PreparedStatement deleteStatement = connection.
 						prepareStatement(HRConstants.REMOVE_GRAD_TRAINING_BY_LOCATION);
-				deleteStatement.setString(0, location);
+				deleteStatement.setString(1, location);
 				int result = deleteStatement.executeUpdate();
 				PreparedStatement deleteMappings = connection.
 						prepareStatement(HRConstants.REMOVE_GRAD_TRAINING_MAPPINGS);
-				deleteMappings.setInt(0, gradTraining.getGradTrainingId());
+				deleteMappings.setInt(1, gradTraining.getGradTrainingId());
 				deleteMappings.executeUpdate();
 				deleteMappings.close();
 				deleteStatement.close();
@@ -133,9 +137,8 @@ public class ManageGraduateTraining implements IManageGraduateTraining {
 			if(authManager.isAuthorizedTo(token, HRConstants.READ)) {
 				PreparedStatement select = connection.
 						prepareStatement(HRConstants.SELECT_GRAD_TRAINING_BY_LOCATION);
-				select.setString(0, location);
+				select.setString(1, location);
 				ResultSet result = select.executeQuery();
-				select.close();
 				if(result.next()) {
 					GraduateTraining gradTraining = new GraduateTraining(
 							result.getInt(HRConstants.GRAD_TRAINING_ID),

@@ -24,7 +24,6 @@ import ws.utils.Impl.HRConstants;
  *
  */
 public class ManageStudent implements IManageStudent {
-	//TODO: HOW AM I GOING TO MANAGE STUDENTS TO EVENTS AND VICE VERSA
 	
 	private final Connection connection = DatabaseConnection.getConnection();
 	private final AuthorizationManager authManager = new AuthorizationManagerImpl();
@@ -36,10 +35,10 @@ public class ManageStudent implements IManageStudent {
 			if(student == null) {
 				PreparedStatement insert = connection.
 						prepareStatement(HRConstants.INSERT_STUDENT);
-				insert.setString(0, studentName);
-				insert.setString(1, studentSurname);
-				insert.setString(2, studentEmail);
-				insert.setObject(3, studentRegistered);
+				insert.setString(1, studentName);
+				insert.setString(2, studentSurname);
+				insert.setString(3, studentEmail);
+				insert.setObject(4, studentRegistered);
 				int result = insert.executeUpdate();
 				insert.close();
 				if(result == 0) {
@@ -60,10 +59,15 @@ public class ManageStudent implements IManageStudent {
 	public int removeStudentByEmail(String token, String studentEmail) {
 		try {
 			if(authManager.isAuthorizedTo(token, HRConstants.WRITE)) {
+				Student student = getStudentByEmail(token, studentEmail);
 				PreparedStatement delete = connection.
 						prepareStatement(HRConstants.DELETE_STUDENT_BY_EMAIL);
-				delete.setString(0, studentEmail);
+				delete.setString(1, studentEmail);
 				int result = delete.executeUpdate();
+				PreparedStatement deleteMappings = connection.
+						prepareStatement(HRConstants.DELETE_STUDENT_MAPPINGS);
+				deleteMappings.setInt(1, student.getStudentId());
+				deleteMappings.executeUpdate();
 				delete.close();
 				if(result == 0) {
 					return 0;
@@ -83,14 +87,11 @@ public class ManageStudent implements IManageStudent {
 	public List<Student> searchStudentByName(String token, String searchPhrase) {
 		try {
 			if(authManager.isAuthorizedTo(token, HRConstants.READ)) {
-				//TODO: ADD HERE THE SECURE LOGIC SQL INJECTION IS A GOOD PLACE HERE AS WELL
-				//BUT ONLY IF NEEDED
 				PreparedStatement select = connection.
 						prepareStatement(HRConstants.SEARCH_STUDENT_BY_NAME);
-				select.setString(0, searchPhrase);
 				select.setString(1, searchPhrase);
+				select.setString(2, searchPhrase);
 				ResultSet result = select.executeQuery();
-			
 				List<Student> list = generateStudentList(result);
 				select.close();
 				if(list.isEmpty()) {
@@ -114,7 +115,6 @@ public class ManageStudent implements IManageStudent {
 				PreparedStatement select = connection.
 						prepareStatement(HRConstants.SELECT_ALL_STUDENTS);
 				ResultSet result = select.executeQuery();
-				
 				List<Student> list = generateStudentList(result); 
 				select.close();
 				if(list.isEmpty()) {
@@ -152,9 +152,8 @@ public class ManageStudent implements IManageStudent {
 			if(authManager.isAuthorizedTo(token, HRConstants.READ)) {
 				PreparedStatement select = connection.
 						prepareStatement(HRConstants.SELECT_STUDENT_BY_EMAIL);
-				select.setString(0, studentEmail);
+				select.setString(1, studentEmail);
 				ResultSet result = select.executeQuery();
-				
 				if(result.next()) {
 					Student student = new Student(
 							result.getInt(HRConstants.STUDENT_ID), 
@@ -181,16 +180,25 @@ public class ManageStudent implements IManageStudent {
 	public int registerStudentToEvent(String token, int studentId, int eventId) {
 		try {
 			if(authManager.isAuthorizedTo(token, HRConstants.WRITE)) {
-				PreparedStatement insert = connection.
-						prepareStatement(HRConstants.REGISTER_STUDENT_FOR_EVENT);
-				insert.setInt(0, studentId);
-				insert.setInt(1, eventId);
-				int result = insert.executeUpdate();
-				insert.close();
-				if(result == 0) {
-					return 0;
+				PreparedStatement check = connection.
+						prepareStatement(HRConstants.SELECT_EXACT_STUDENT_TO_EVENT_MAPPING);
+				check.setInt(1, studentId);
+				check.setInt(2, eventId);
+				ResultSet checkResult = check.executeQuery();
+				if(!checkResult.next()) { //if student not already registered to exactly that event do it.
+					PreparedStatement insert = connection.
+							prepareStatement(HRConstants.REGISTER_STUDENT_FOR_EVENT);
+					insert.setInt(1, studentId);
+					insert.setInt(2, eventId);
+					int result = insert.executeUpdate();
+					insert.close();
+					if(result == 0) {
+						return 0;
+					} else {
+						return 1;
+					}
 				} else {
-					return 1;
+					return 0;
 				}
 			} else {
 				return 0;
@@ -202,13 +210,13 @@ public class ManageStudent implements IManageStudent {
 	}
 
 	@Override
-	public int unregisterStudetnFromEvent(String token, int studentId, int eventId) {
+	public int unregisterStudentFromEvent(String token, int studentId, int eventId) {
 		try {
 			if(authManager.isAuthorizedTo(token, HRConstants.WRITE)) {
 				PreparedStatement delete = connection.
 						prepareStatement(HRConstants.UNREGISTER_STUDENT_FROM_EVENT);
-				delete.setInt(0, studentId);
-				delete.setInt(1, eventId);
+				delete.setInt(1, studentId);
+				delete.setInt(2, eventId);
 				int result = delete.executeUpdate();
 				delete.close();
 				if(result == 0) {

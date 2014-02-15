@@ -24,6 +24,7 @@ import ws.utils.Impl.HRConstants;
  */
 public class ManageEvent implements IManageEvent {
 	
+	
 	private final Connection connection = DatabaseConnection.getConnection();
 	private final AuthorizationManager authManager = new AuthorizationManagerImpl();
 
@@ -36,11 +37,11 @@ public class ManageEvent implements IManageEvent {
 				if(event == null) {
 					PreparedStatement insert = connection.
 							prepareStatement(HRConstants.INSERT_EVENT);
-					insert.setString(0, eventName);
-					insert.setString(1, eventLocation);
-					insert.setObject(2, eventDate);
-					insert.setInt(3, eventDurationInMinutes);
-					insert.setInt(4, eventCapacity);
+					insert.setString(1, eventName);
+					insert.setString(2, eventLocation);
+					insert.setObject(3, eventDate);
+					insert.setInt(4, eventDurationInMinutes);
+					insert.setInt(5, eventCapacity);
 					int result = insert.executeUpdate();
 					if(result == 0) {
 						return 0;
@@ -63,10 +64,16 @@ public class ManageEvent implements IManageEvent {
 	public int removeEventByName(String token, String eventName) {
 		try {
 			if(authManager.isAuthorizedTo(token, HRConstants.WRITE)) {
+				Event event = getEventByName(token, eventName);
 				PreparedStatement delete = connection.
 						prepareStatement(HRConstants.DELETE_EVENT_BY_NAME);
-				delete.setString(0, eventName);
+				delete.setString(1, eventName);
 				int result = delete.executeUpdate();
+				PreparedStatement deleteMappings = connection.
+						prepareStatement(HRConstants.DELETE_EVENT_MAPPINGS);
+				deleteMappings.setInt(1, event.getEventId());
+				deleteMappings.executeUpdate();
+				deleteMappings.close();
 				delete.close();
 				if(result == 0) {
 					return 0;
@@ -94,12 +101,12 @@ public class ManageEvent implements IManageEvent {
 				} else {
 					PreparedStatement update = connection.
 							prepareStatement(HRConstants.UPDATE_EVENT);
-					update.setString(0, eventName);
-					update.setString(1, eventLocation);
-					update.setObject(2, eventDate);
-					update.setInt(3, eventDurationInMinutes);
-					update.setInt(4, eventCapacity);
-					update.setInt(5, eventId);
+					update.setString(1, eventName);
+					update.setString(2, eventLocation);
+					update.setObject(3, eventDate);
+					update.setInt(4, eventDurationInMinutes);
+					update.setInt(5, eventCapacity);
+					update.setInt(6, eventId);
 					int result = update.executeUpdate();
 					if(result == 0) {
 						return 0;
@@ -122,7 +129,7 @@ public class ManageEvent implements IManageEvent {
 			if(authManager.isAuthorizedTo(token, HRConstants.READ)) {
 				PreparedStatement select = connection.
 						prepareStatement(HRConstants.SELECT_EVENT_BY_NAME);
-				select.setString(0, eventName);
+				select.setString(1, eventName);
 				ResultSet result = select.executeQuery();
 				if(result.next()) {
 					Event event = new Event(

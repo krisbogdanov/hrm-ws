@@ -8,6 +8,7 @@ package ws.utils.Impl;
  *
  */
 public class HRConstants {
+	public static final String EMPTY_STRING = "";
 	public static final String WRITE = "1";
 	public static final String READ = "0";
 	public static final String TOKEN = "token";
@@ -62,7 +63,9 @@ public class HRConstants {
 	public static final String REMOVE_GRAD_TRAINING_BY_LOCATION =
 			"DELETE FROM hr.GraduateTraining WHERE gradTrainingLocation = ?;";
 	public static final String REMOVE_GRAD_TRAINING_MAPPINGS =
-			"DELETE FROM hr.EmployeeToGradTrainining WHERE gradTrainingId = ?;";
+			"DELETE FROM hr.EmployeeToGradTraining WHERE gradTrainingId = ?;";
+	public static final String REMOVE_GRAD_TRAINING_MAPPINGS_FOR_EMP =
+			"DELETE FROM hr.EmployeeToGradTraining WHERE employeeId = ?;";
 	public static final String SELECT_ALL_GRAD_TRAININGS = 
 			"SELECT * FROM hr.GraduateTraining;";
 	public static final String SELECT_EMP_PERFORMANCE_BY_EMP_ID = 
@@ -102,8 +105,8 @@ public class HRConstants {
 	public static final String INSERT_STUDENT =
 			"INSERT INTO hr.Student VALUES(default, ?, ?, ?, ?);";
 	public static final String SEARCH_STUDENT_BY_NAME =
-			"SELECT * FROM hr.Student WHERE studentName LIKE '%?%' " +
-			"OR studentSurname LIKE '%?%';";
+			"SELECT * FROM hr.Student WHERE studentName LIKE ? " +
+			"OR studentSurname LIKE ?;";
 	public static final String REGISTER_STUDENT_FOR_EVENT = 
 			"INSERT INTO hr.StudentToEvent VALUES(default, ?, ?);";
 	public static final String UNREGISTER_STUDENT_FROM_EVENT = 
@@ -144,4 +147,10 @@ public class HRConstants {
 			" WHERE employeeId = ?;";
 	public static final String SELECT_DEPARTMENT_BY_ID =
 			"SELECT department FROM hr.EmployeeDepartment WHERE departmentId = ?;";
+	public static final String DELETE_EVENT_MAPPINGS = 
+			"DELETE FROM hr.StudentToEvent WHERE eventId = ?;";
+	public static final String DELETE_STUDENT_MAPPINGS =
+			"DELETE FROM hr.StudentToEvent WHERE studentId = ?;";
+	public static final String SELECT_EXACT_STUDENT_TO_EVENT_MAPPING =
+			"SELECT * FROM hr.StudentToEvent WHERE studentId = ? AND eventId = ?;";
 }

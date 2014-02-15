@@ -80,6 +80,10 @@ public class ManageEmployee implements IManageEmployee {
 						prepareStatement(HRConstants.DELETE_EMPLOYEE_BY_ID);
 				delete.setInt(1, employeeId);
 				Integer result = delete.executeUpdate();
+				PreparedStatement deleteMappings = connection.
+						prepareStatement(HRConstants.REMOVE_GRAD_TRAINING_MAPPINGS_FOR_EMP);
+				deleteMappings.setInt(1, employeeId);
+				deleteMappings.executeUpdate();
 				delete.close();
 				if(result == 0) {
 					return 0;
@@ -268,7 +272,7 @@ public class ManageEmployee implements IManageEmployee {
 					result.getString(HRConstants.EMPLOYEE_ADDRESS), 
 					result.getString(HRConstants.EMPLOYEE_SSN), 
 					result.getString(HRConstants.EMPLOYEE_USERNAME), 
-					result.getString(HRConstants.EMPLOYEE_PASSWORD), 
+				    result.getString(HRConstants.EMPLOYEE_PASSWORD), 
 					result.getDate(HRConstants.EMPLOYEE_JOINED), 
 					result.getInt(HRConstants.EMPLOYEE_DEPARTMENT), 
 					result.getString(HRConstants.EMPLOYEE_PHONE),

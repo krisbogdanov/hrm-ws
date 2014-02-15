@@ -14,7 +14,7 @@ import junit.framework.TestCase;
 public class ManageEmployeeTests extends TestCase {
 	
 	private IManageEmployee manager = new ManageEmployee();
-	private String token = "B9AD91E0-FCE5-4661-BF3E-67E0DC6FA032";
+	private String token = "writeToken";
 	@Test
 	public void testAddEmployeeThenGetItByUsernameAndThenRemove() {
 		int result = manager.addEmployee(token, "name", "sur",
@@ -34,10 +34,10 @@ public class ManageEmployeeTests extends TestCase {
 	
 	@Test
 	public void testGetEmployeeByIdAndThenChangePassword() {
-		Employee emp = manager.getEmployeeById("testToken", 4);
+		Employee emp = manager.getEmployeeById("readToken", 4);
 		assertNotNull(emp);
 		String randomPass = RandomStringUtils.randomAlphabetic(10);
-		int result = manager.changeEmployeePassword("testToken", 4, emp.getEmployeePassword(), randomPass);
+		int result = manager.changeEmployeePassword("readToken", 4, emp.getEmployeePassword(), randomPass);
 		assertEquals(1, result);
 	}
 	
@@ -57,7 +57,7 @@ public class ManageEmployeeTests extends TestCase {
 	public void testEditBankDetailsByEmpId() {
 		int result = manager.editBankDetailsByEmployeeId(token, 4, "RBS", 124512541, 413512);
 		assertEquals(1, result);
-		int resultNegative = manager.editBankDetailsByEmployeeId("testToken", 6, "RBS", 124512541, 413512);
+		int resultNegative = manager.editBankDetailsByEmployeeId("readToken", 6, "RBS", 124512541, 413512);
 		assertEquals(0, resultNegative);
 	}
 	

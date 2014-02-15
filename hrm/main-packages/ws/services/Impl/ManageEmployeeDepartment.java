@@ -33,7 +33,7 @@ public class ManageEmployeeDepartment implements IManageEmployeeDepartment {
 				if(empType == null) {
 					PreparedStatement insert = connection.
 							prepareStatement(HRConstants.INSERT_EMP_DEPARTMENT);
-					insert.setString(0, department);
+					insert.setString(1, department);
 					int result = insert.executeUpdate();
 					insert.close();
 					if(result == 0) {
@@ -59,7 +59,7 @@ public class ManageEmployeeDepartment implements IManageEmployeeDepartment {
 			if(authManager.isAuthorizedTo(token, HRConstants.WRITE)) {
 				PreparedStatement delete = connection.
 						prepareStatement(HRConstants.DELETE_EMP_DEPARTMENT);
-				delete.setString(0, department);
+				delete.setString(1, department);
 				int result = delete.executeUpdate();
 				if(result == 0) {
 					return 0;
@@ -81,7 +81,7 @@ public class ManageEmployeeDepartment implements IManageEmployeeDepartment {
 			if(authManager.isAuthorizedTo(token, HRConstants.READ)) {
 				PreparedStatement select = connection.
 						prepareStatement(HRConstants.SELECT_EMP_DEPARTMENT_BY_NAME);
-				select.setString(0, department);
+				select.setString(1, department);
 				ResultSet result = select.executeQuery();
 				if(result.next()) {
 					EmployeeDepartment empDep = new EmployeeDepartment(
@@ -126,10 +126,10 @@ public class ManageEmployeeDepartment implements IManageEmployeeDepartment {
 			throws SQLException {
 		List<EmployeeDepartment> list = new ArrayList<EmployeeDepartment>();
 		while(result.next()) {
-			EmployeeDepartment empType = new EmployeeDepartment(
+			EmployeeDepartment empDep = new EmployeeDepartment(
 					result.getInt(HRConstants.DEPARTMENT_ID),
 					result.getString(HRConstants.DEPARTMENT));
-			list.add(empType);
+			list.add(empDep);
 		}
 		return list;
 	}

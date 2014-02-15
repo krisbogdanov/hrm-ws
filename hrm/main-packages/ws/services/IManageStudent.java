@@ -26,6 +26,6 @@ public interface IManageStudent {
 	public Student getStudentByEmail(final String token, final String studentEmail);
 	
 	public int registerStudentToEvent(final String token, final int studentId, final int eventId);
-	public int unregisterStudetnFromEvent(final String token, final int studentId, final int eventId);
+	public int unregisterStudentFromEvent(final String token, final int studentId, final int eventId);
 	
 }
