@@ -12,8 +12,11 @@ import java.util.Date;
 import java.util.List;
 
 import ws.dao.Event;
+import ws.dao.Student;
 import ws.security.AuthorizationManager;
+import ws.security.InputValidationManager;
 import ws.security.Impl.AuthorizationManagerImpl;
+import ws.security.Impl.InputValidationManagerImpl;
 import ws.services.IManageEvent;
 import ws.utils.Impl.DatabaseConnection;
 import ws.utils.Impl.HRConstants;
@@ -23,17 +26,24 @@ import ws.utils.Impl.HRConstants;
  *
  */
 public class ManageEvent implements IManageEvent {
-	
-	
 	private final Connection connection = DatabaseConnection.getConnection();
 	private final AuthorizationManager authManager = new AuthorizationManagerImpl();
-
+	private final InputValidationManager validationManager = new InputValidationManagerImpl();
 	@Override
 	public int addEvent(String token, String eventName, String eventLocation,
-			Date eventDate, int eventDurationInMinutes, int eventCapacity) {
+			Date eventDate, int eventDurationInMinutes, int eventCapacity, boolean secure) {
 		try {
+			if(secure) {
+				if(!validationManager.textValidation(eventName) ||
+						!validationManager.textValidation(eventLocation) ||
+						!validationManager.dateValidation(eventDate) ||
+						!validationManager.integerValidation(eventCapacity) ||
+						!validationManager.integerValidation(eventDurationInMinutes)) {
+					return 0;
+				}
+			}
 			if(authManager.isAuthorizedTo(token, HRConstants.WRITE)) {
-				Event event = getEventByName(token, eventName);
+				Event event = getEventByName(token, eventName, secure);
 				if(event == null) {
 					PreparedStatement insert = connection.
 							prepareStatement(HRConstants.INSERT_EVENT);
@@ -61,10 +71,15 @@ public class ManageEvent implements IManageEvent {
 	}
 
 	@Override
-	public int removeEventByName(String token, String eventName) {
+	public int removeEventByName(String token, String eventName, boolean secure) {
 		try {
+			if(secure) {
+				if(!validationManager.textValidation(eventName)) {
+					return 0;
+				}
+			}
 			if(authManager.isAuthorizedTo(token, HRConstants.WRITE)) {
-				Event event = getEventByName(token, eventName);
+				Event event = getEventByName(token, eventName, secure);
 				PreparedStatement delete = connection.
 						prepareStatement(HRConstants.DELETE_EVENT_BY_NAME);
 				delete.setString(1, eventName);
@@ -92,10 +107,20 @@ public class ManageEvent implements IManageEvent {
 	@Override
 	public int editEventById(String token, int eventId, String eventName,
 			String eventLocation, Date eventDate, int eventDurationInMinutes,
-			int eventCapacity) {
+			int eventCapacity, boolean secure) {
 		try {
+			if(secure) {
+				if(!validationManager.textValidation(eventName) ||
+						!validationManager.integerValidation(eventId) ||
+						!validationManager.textValidation(eventLocation) ||
+						!validationManager.dateValidation(eventDate) ||
+						!validationManager.integerValidation(eventCapacity) ||
+						!validationManager.integerValidation(eventDurationInMinutes)) {
+					return 0;
+				}
+			}
 			if(authManager.isAuthorizedTo(token, HRConstants.WRITE)) {
-				Event event = getEventByName(token, eventName);
+				Event event = getEventByName(token, eventName, secure);
 				if(event == null) {
 					return 0;
 				} else {
@@ -124,8 +149,13 @@ public class ManageEvent implements IManageEvent {
 	}
 
 	@Override
-	public Event getEventByName(String token, String eventName) {
+	public Event getEventByName(String token, String eventName, boolean secure) {
 		try {
+			if(secure) {
+				if(!validationManager.textValidation(eventName)) {
+					return null;
+				}
+			}
 			if(authManager.isAuthorizedTo(token, HRConstants.READ)) {
 				PreparedStatement select = connection.
 						prepareStatement(HRConstants.SELECT_EVENT_BY_NAME);
@@ -153,7 +183,7 @@ public class ManageEvent implements IManageEvent {
 	}
 
 	@Override
-	public List<Event> getAllEvents(String token) {
+	public List<Event> getAllEvents(String token, boolean secure) {
 		try {
 			if(authManager.isAuthorizedTo(token, HRConstants.READ)) {
 				PreparedStatement select = connection.
@@ -187,6 +217,44 @@ public class ManageEvent implements IManageEvent {
 			list.add(event);
 		}
 		return list;
+	}
+
+	@Override
+	public List<Student> getStudentsRegisteredForEvent(String token,
+			int eventId, boolean secure) {
+		try {
+			if(secure) {
+				if(!validationManager.integerValidation(eventId)) {
+					return null;
+				}
+			}
+			if(authManager.isAuthorizedTo(token, HRConstants.READ)) {
+				PreparedStatement select = connection.prepareStatement(HRConstants.SELECT_STUDENTS_FOR_EVENT);
+				select.setInt(1, eventId);
+				ResultSet result = select.executeQuery();
+				List<Student> list = new ArrayList<Student>();
+				while(result.next()) {
+					int studentId = result.getInt(HRConstants.STUDENT_ID);
+					PreparedStatement selectStudent = connection.prepareStatement(HRConstants.SELECT_STUDENT_BY_ID);
+					selectStudent.setInt(1, studentId);
+					ResultSet studentResult = selectStudent.executeQuery();
+					if(studentResult.next()) {
+						Student student = new Student(studentResult.getInt(HRConstants.STUDENT_ID),
+								studentResult.getString(HRConstants.STUDENT_NAME),
+								studentResult.getString(HRConstants.STUDENT_SURNAME),
+								studentResult.getString(HRConstants.STUDENT_EMAIL),
+								studentResult.getDate(HRConstants.STUDENT_REGISTERED));
+						list.add(student);
+					}
+				}
+				return list;
+			} else {
+				return null;
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }

@@ -12,7 +12,9 @@ import java.util.List;
 
 import ws.dao.EmployeeDepartment;
 import ws.security.AuthorizationManager;
+import ws.security.InputValidationManager;
 import ws.security.Impl.AuthorizationManagerImpl;
+import ws.security.Impl.InputValidationManagerImpl;
 import ws.services.IManageEmployeeDepartment;
 import ws.utils.Impl.DatabaseConnection;
 import ws.utils.Impl.HRConstants;
@@ -25,11 +27,17 @@ public class ManageEmployeeDepartment implements IManageEmployeeDepartment {
 	
 	private final Connection connection = DatabaseConnection.getConnection();
 	private final AuthorizationManager authManager = new AuthorizationManagerImpl();
+	private final InputValidationManager validationManager = new InputValidationManagerImpl();
 	@Override
-	public int addEmployeeDepartment(String token, String department) {
+	public int addEmployeeDepartment(String token, String department, boolean secure) {
 		try{
+			if(secure) {
+				if(!validationManager.textValidation(department)) {
+					return 0;
+				}
+			}
 			if(authManager.isAuthorizedTo(token, HRConstants.WRITE)) {
-				EmployeeDepartment empType = getEmployeeDepartmentByName(token, department);
+				EmployeeDepartment empType = getEmployeeDepartmentByName(token, department, secure);
 				if(empType == null) {
 					PreparedStatement insert = connection.
 							prepareStatement(HRConstants.INSERT_EMP_DEPARTMENT);
@@ -54,8 +62,13 @@ public class ManageEmployeeDepartment implements IManageEmployeeDepartment {
 	}
 
 	@Override
-	public int removeEmployeeDepartment(String token, String department) {
+	public int removeEmployeeDepartment(String token, String department, boolean secure) {
 		try {
+			if(secure) {
+				if(!validationManager.textValidation(department)) {
+					return 0;
+				}
+			}
 			if(authManager.isAuthorizedTo(token, HRConstants.WRITE)) {
 				PreparedStatement delete = connection.
 						prepareStatement(HRConstants.DELETE_EMP_DEPARTMENT);
@@ -76,8 +89,13 @@ public class ManageEmployeeDepartment implements IManageEmployeeDepartment {
 	}
 
 	@Override
-	public EmployeeDepartment getEmployeeDepartmentByName(String token, String department) {
+	public EmployeeDepartment getEmployeeDepartmentByName(String token, String department, boolean secure) {
 		try {
+			if(secure) {
+				if(!validationManager.textValidation(department)) {
+					return null;
+				}
+			}
 			if(authManager.isAuthorizedTo(token, HRConstants.READ)) {
 				PreparedStatement select = connection.
 						prepareStatement(HRConstants.SELECT_EMP_DEPARTMENT_BY_NAME);
@@ -101,7 +119,7 @@ public class ManageEmployeeDepartment implements IManageEmployeeDepartment {
 	}
 
 	@Override
-	public List<EmployeeDepartment> getAllEmployeeDepartments(String token) {
+	public List<EmployeeDepartment> getAllEmployeeDepartments(String token, boolean secure) {
 		try {
 			if(authManager.isAuthorizedTo(token, HRConstants.READ)) {
 				PreparedStatement select = connection.

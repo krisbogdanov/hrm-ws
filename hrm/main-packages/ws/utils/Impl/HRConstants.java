@@ -153,4 +153,10 @@ public class HRConstants {
 			"DELETE FROM hr.StudentToEvent WHERE studentId = ?;";
 	public static final String SELECT_EXACT_STUDENT_TO_EVENT_MAPPING =
 			"SELECT * FROM hr.StudentToEvent WHERE studentId = ? AND eventId = ?;";
+	public static final String SELECT_STUDENT_BY_ID = 
+			"SELECT * FROM hr.Student WHERE studentId = ?;";
+	public static final String SELECT_STUDENTS_FOR_EVENT = 
+			"SELECT * FROM hr.StudentToEvent WHERE eventId = ?;";
+	public static final String SELECT_EMP_TO_GRAD_MAPPING_BY_GRAD_ID = 
+			"SELECT * FROM hr.EmployeeToGradTraining WHERE gradTrainingId = ?;";
 }

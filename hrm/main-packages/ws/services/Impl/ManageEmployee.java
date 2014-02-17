@@ -15,7 +15,9 @@ import java.util.List;
 import ws.dao.BankDetails;
 import ws.dao.Employee;
 import ws.security.AuthorizationManager;
+import ws.security.InputValidationManager;
 import ws.security.Impl.AuthorizationManagerImpl;
+import ws.security.Impl.InputValidationManagerImpl;
 import ws.services.IManageEmployee;
 import ws.utils.Impl.DatabaseConnection;
 import ws.utils.Impl.HRConstants;
@@ -28,16 +30,28 @@ public class ManageEmployee implements IManageEmployee {
 
 	private final Connection connection = DatabaseConnection.getConnection();
 	private final AuthorizationManager authManager = new AuthorizationManagerImpl();
-
+	private final InputValidationManager validationManager = new InputValidationManagerImpl();
 	@Override
 	public int addEmployee(String token, String employeeName,
 			String employeeSurname, String employeeEmail,
 			String employeeAddress, String employeeSSN, String employeePhone,
-			int employeeDepartment, String employeeRole, String employeeUsername) {
+			int employeeDepartment, String employeeRole, String employeeUsername, boolean secure) {
 		try {
-			
+			if(secure) {
+				if(!validationManager.textValidation(employeeName) || 
+						!validationManager.textValidation(employeeSurname) ||
+						!validationManager.emailValidation(employeeEmail) ||
+						!validationManager.textValidation(employeeAddress) ||
+						!validationManager.textValidation(employeeSSN) ||
+						!validationManager.textValidation(employeePhone) ||
+						!validationManager.integerValidation(employeeDepartment) ||
+						!validationManager.textValidation(employeeRole) ||
+						!validationManager.usernameValidation(employeeUsername)) {
+					return 0;
+				}
+			}
 			if(authManager.isAuthorizedTo(token, HRConstants.WRITE)) {
-				Employee employee = getEmployeeByUsername(token, employeeUsername);
+				Employee employee = getEmployeeByUsername(token, employeeUsername, secure);
 				if(employee == null) {
 					Date employeeJoined = new Date();
 					PreparedStatement insert = connection.
@@ -73,8 +87,13 @@ public class ManageEmployee implements IManageEmployee {
 	}
 
 	@Override
-	public int removeEmployeeById(String token, int employeeId) {
+	public int removeEmployeeById(String token, int employeeId, boolean secure) {
 		try {
+			if(secure) {
+				if(!validationManager.integerValidation(employeeId)) {
+					return 0;
+				}
+			}
 			if(authManager.isAuthorizedTo(token, HRConstants.WRITE)) {
 				PreparedStatement delete = connection.
 						prepareStatement(HRConstants.DELETE_EMPLOYEE_BY_ID);
@@ -103,8 +122,22 @@ public class ManageEmployee implements IManageEmployee {
 	public int editEmployeeById(String token, int employeeId,
 			String employeeName, String employeeSurname, String employeeEmail,
 			String employeeAddress, String employeeSSN, String employeePhone,
-			int employeeDepartment, String employeeUsername, String employeeRole) {
+			int employeeDepartment, String employeeUsername, String employeeRole, boolean secure) {
 		try {
+			if(secure) {
+				if(!validationManager.textValidation(employeeName) || 
+						!validationManager.textValidation(employeeSurname) ||
+						!validationManager.emailValidation(employeeEmail) ||
+						!validationManager.textValidation(employeeAddress) ||
+						!validationManager.textValidation(employeeSSN) ||
+						!validationManager.textValidation(employeePhone) ||
+						!validationManager.integerValidation(employeeDepartment) ||
+						!validationManager.textValidation(employeeRole) ||
+						!validationManager.usernameValidation(employeeUsername) ||
+						!validationManager.integerValidation(employeeId)) {
+					return 0;
+				}
+			}
 			if(authManager.isAuthorizedTo(token, HRConstants.WRITE) 
 					|| authManager.isTheOwnerOf(token, employeeId)) {
 				PreparedStatement update = connection.
@@ -137,10 +170,17 @@ public class ManageEmployee implements IManageEmployee {
 
 	@Override
 	public int changeEmployeePassword(String token, int employeeId,
-			String oldPassword, String newPassword) {
+			String oldPassword, String newPassword, boolean secure) {
 		try {
+			if(secure) {
+				if(!validationManager.integerValidation(employeeId) ||
+						!validationManager.passwordValidation(oldPassword) ||
+						!validationManager.passwordValidation(newPassword)) {
+					return 0;
+				}
+			}
 			if(authManager.isTheOwnerOf(token, employeeId)) {
-				Employee emp = getEmployeeById(token, employeeId);
+				Employee emp = getEmployeeById(token, employeeId, secure);
 				if(emp != null) {
 					if(emp.getEmployeePassword().equals(oldPassword)) {
 						PreparedStatement update = connection.
@@ -170,8 +210,13 @@ public class ManageEmployee implements IManageEmployee {
 	}
 
 	@Override
-	public Employee getEmployeeByUsername(String token, String employeeUsername) {
+	public Employee getEmployeeByUsername(String token, String employeeUsername, boolean secure) {
 		try {
+			if(secure) {
+				if(!validationManager.usernameValidation(employeeUsername)) {
+					return null;
+				}
+			}
 			if(authManager.isAuthorizedTo(token, HRConstants.READ)) {
 				PreparedStatement select = connection.
 						prepareStatement(HRConstants.SELECT_EMPLOYEE_BY_USERNAME);
@@ -238,7 +283,7 @@ public class ManageEmployee implements IManageEmployee {
 	}
 
 	@Override
-	public List<Employee> getAllEmployees(String token) {
+	public List<Employee> getAllEmployees(String token, boolean secure) {
 		try {
 			if(authManager.isAuthorizedTo(token, HRConstants.READ)) {
 				PreparedStatement select = connection.
@@ -283,10 +328,16 @@ public class ManageEmployee implements IManageEmployee {
 	}
 	@Override
 	public int registerEmployeeForGradTraining(String token, int gradTrainingId,
-			int employeeId) {
+			int employeeId, boolean secure) {
 		try {
+			if(secure) {
+				if(!validationManager.integerValidation(employeeId) ||
+						!validationManager.integerValidation(gradTrainingId)) {
+					return 0;
+				}
+			}
 			if(authManager.isAuthorizedTo(token, HRConstants.WRITE)) {
-				if(checkGradTrainingRegistration(employeeId, gradTrainingId) > 0) {
+				if(checkGradTrainingRegistration(employeeId, gradTrainingId, secure) > 0) {
 					return 0;
 				} else {
 					PreparedStatement register = connection.
@@ -309,7 +360,7 @@ public class ManageEmployee implements IManageEmployee {
 			return 0;
 		}
 	}
-	private int checkGradTrainingRegistration(int employeeId, int gradTrainingId) {
+	private int checkGradTrainingRegistration(int employeeId, int gradTrainingId, boolean secure) {
 		try {
 			PreparedStatement select = connection.
 					prepareStatement(HRConstants.SELECT_EMPLOYEE_TO_GRAD_TRAINING);
@@ -330,8 +381,14 @@ public class ManageEmployee implements IManageEmployee {
 	}
 	@Override
 	public int unregisterEmployeeFromGradTraining(String token, int gradTrainingId,
-			int employeeId) {
+			int employeeId, boolean secure) {
 		try {
+			if(secure) {
+				if(!validationManager.integerValidation(employeeId) ||
+						!validationManager.integerValidation(gradTrainingId)) {
+					return 0;
+				}
+			}
 			if(authManager.isAuthorizedTo(token, HRConstants.WRITE)) {
 				PreparedStatement delete = connection.
 						prepareStatement(HRConstants.UNREGISTER_EMPLOYEE_FROM_GRAD_TRAINING);
@@ -355,11 +412,19 @@ public class ManageEmployee implements IManageEmployee {
 
 	@Override
 	public int addBankDetails(String token, int employeeId, String bankName,
-			int accountNumber, int sortCode) {
+			int accountNumber, int sortCode, boolean secure) {
 		try {
+			if(secure) {
+				if(!validationManager.integerValidation(employeeId) ||
+						!validationManager.integerValidation(accountNumber) ||
+						!validationManager.textValidation(bankName) ||
+						!validationManager.integerValidation(sortCode)) {
+					return 0;
+				}
+			}
 			if(authManager.isAuthorizedTo(token, HRConstants.WRITE) ||
 					authManager.isTheOwnerOf(token, employeeId)) {
-				BankDetails details = getBankDetailsByEmployeeId(token, employeeId);
+				BankDetails details = getBankDetailsByEmployeeId(token, employeeId, secure);
 				if(details == null) {
 					PreparedStatement insert = connection.
 							prepareStatement(HRConstants.INSERT_BANK_DETAILS);
@@ -387,8 +452,13 @@ public class ManageEmployee implements IManageEmployee {
 	}
 
 	@Override
-	public int removeBankDetailsByEmployeeId(String token, int employeeId) {
+	public int removeBankDetailsByEmployeeId(String token, int employeeId, boolean secure) {
 		try {
+			if(secure) {
+				if(!validationManager.integerValidation(employeeId)) {
+					return 0;
+				}
+			}
 			if(authManager.isAuthorizedTo(token, HRConstants.WRITE) ||
 					authManager.isTheOwnerOf(token, employeeId)) {
 				PreparedStatement delete = connection.
@@ -412,8 +482,16 @@ public class ManageEmployee implements IManageEmployee {
 
 	@Override
 	public int editBankDetailsByEmployeeId(String token, int employeeId,
-			String bankName, int accountNumber, int sortCode) {
+			String bankName, int accountNumber, int sortCode, boolean secure) {
 		try {
+			if(secure) {
+				if(!validationManager.integerValidation(employeeId) ||
+						!validationManager.integerValidation(accountNumber) ||
+						!validationManager.textValidation(bankName) ||
+						!validationManager.integerValidation(sortCode)) {
+					return 0;
+				}
+			}
 			if(authManager.isAuthorizedTo(token, HRConstants.WRITE) ||
 					authManager.isTheOwnerOf(token, employeeId)) {
 				PreparedStatement update = connection.
@@ -439,8 +517,13 @@ public class ManageEmployee implements IManageEmployee {
 	}
 
 	@Override
-	public BankDetails getBankDetailsByEmployeeId(String token, int employeeId) {
+	public BankDetails getBankDetailsByEmployeeId(String token, int employeeId, boolean secure) {
 		try {
+			if(secure) {
+				if(!validationManager.integerValidation(employeeId)) {
+					return null;
+				}
+			}
 			if(authManager.isAuthorizedTo(token, HRConstants.WRITE) ||
 					authManager.isTheOwnerOf(token, employeeId)) {
 				PreparedStatement select = connection.
@@ -470,8 +553,13 @@ public class ManageEmployee implements IManageEmployee {
 	}
 
 	@Override
-	public Employee getEmployeeById(String token, int employeeId) {
+	public Employee getEmployeeById(String token, int employeeId, boolean secure) {
 		try {
+			if(secure) {
+				if(!validationManager.integerValidation(employeeId)) {
+					return null;
+				}
+			}
 			if(authManager.isAuthorizedTo(token, HRConstants.READ)) {
 				PreparedStatement select = connection.
 						prepareStatement(HRConstants.SELECT_EMPLOYEE_BY_ID);

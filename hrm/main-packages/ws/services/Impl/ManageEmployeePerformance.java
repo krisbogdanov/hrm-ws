@@ -12,7 +12,9 @@ import java.util.List;
 
 import ws.dao.EmployeePerformance;
 import ws.security.AuthorizationManager;
+import ws.security.InputValidationManager;
 import ws.security.Impl.AuthorizationManagerImpl;
+import ws.security.Impl.InputValidationManagerImpl;
 import ws.services.IManageEmployeePerformance;
 import ws.utils.Impl.DatabaseConnection;
 import ws.utils.Impl.HRConstants;
@@ -25,11 +27,18 @@ public class ManageEmployeePerformance implements IManageEmployeePerformance {
 	
 	private final Connection connection = DatabaseConnection.getConnection();
 	private final AuthorizationManager authManager = new AuthorizationManagerImpl();
-
+	private final InputValidationManager validationManager = new InputValidationManagerImpl();
 	@Override
 	public int addEmployeePerformance(String token, int employeeId,
-			String perfDescription, int year) {
+			String perfDescription, int year, boolean secure) {
 		try {
+			if(secure) {
+				if(!validationManager.integerValidation(employeeId) ||
+						!validationManager.textValidation(perfDescription) ||
+						!validationManager.integerValidation(year)) {
+					return 0;
+				}
+			}
 			if(authManager.isAuthorizedTo(token, HRConstants.WRITE)) {
 				PreparedStatement insertStatement = connection.
 						prepareStatement(HRConstants.INSERT_EMP_PERFORMANCE);
@@ -54,8 +63,14 @@ public class ManageEmployeePerformance implements IManageEmployeePerformance {
 
 	@Override
 	public int editEmployeePerformance(String token, int perfId,
-			String perfDescription) {
+			String perfDescription, boolean secure) {
 		try {
+			if(secure) {
+				if(!validationManager.integerValidation(perfId) ||
+						!validationManager.textValidation(perfDescription)) {
+					return 0;
+				}
+			}
 			if(authManager.isAuthorizedTo(token, HRConstants.WRITE)) {
 				PreparedStatement update = connection.
 						prepareStatement(HRConstants.UPDATE_EMP_PERFORMANCE);
@@ -79,8 +94,13 @@ public class ManageEmployeePerformance implements IManageEmployeePerformance {
 
 	@Override
 	public int removeEmployeePerformanceByPerfId(String token,
-			int perfId) {
+			int perfId, boolean secure) {
 		try {
+			if(secure) {
+				if(!validationManager.integerValidation(perfId)) {
+					return 0;
+				}
+			}
 			if(authManager.isAuthorizedTo(token, HRConstants.WRITE)) {
 				PreparedStatement delete = connection.
 						prepareStatement(HRConstants.DELETE_EMP_PERFORMANCE);
@@ -103,8 +123,13 @@ public class ManageEmployeePerformance implements IManageEmployeePerformance {
 
 	@Override
 	public List<EmployeePerformance> getEmployeePerformanceByEmployeeId(String token,
-			int employeeId) {
+			int employeeId, boolean secure) {
 		try {
+			if(secure) {
+				if(!validationManager.integerValidation(employeeId)) {
+					return null;
+				}
+			}
 			if(authManager.isAuthorizedTo(token, HRConstants.WRITE) ||
 					authManager.isTheOwnerOf(token, employeeId)) {
 				PreparedStatement select = connection.

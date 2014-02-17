@@ -12,8 +12,8 @@ import ws.dao.EmployeeDepartment;
  *
  */
 public interface IManageEmployeeDepartment {
-	public int addEmployeeDepartment(final String token, final String department);
-	public int removeEmployeeDepartment(final String token, final String department);
-	public EmployeeDepartment getEmployeeDepartmentByName(final String token, final String department);
-	public List<EmployeeDepartment> getAllEmployeeDepartments(final String token);
+	public int addEmployeeDepartment(final String token, final String department, boolean secure);
+	public int removeEmployeeDepartment(final String token, final String department, boolean secure);
+	public EmployeeDepartment getEmployeeDepartmentByName(final String token, final String department, boolean secure);
+	public List<EmployeeDepartment> getAllEmployeeDepartments(final String token, boolean secure);
 }

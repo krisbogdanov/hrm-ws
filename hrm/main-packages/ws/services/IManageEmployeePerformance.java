@@ -13,21 +13,12 @@ import ws.dao.EmployeePerformance;
  */
 public interface IManageEmployeePerformance {
 	public int addEmployeePerformance(final String token, final int employeeId,
-			final String perfDescription, final int year);
-	/**
-	 * If you pass null here to any of the editable fields (perfDescription, year)
-	 * it won't be updated.
-	 * @param token
-	 * @param employeeId
-	 * @param perfDescription
-	 * @param year
-	 * @return
-	 */
+			final String perfDescription, final int year, boolean secure);
 	public int editEmployeePerformance(final String token, final int perfId,
-			final String perfDescription);
+			final String perfDescription, boolean secure);
 	
-	public int removeEmployeePerformanceByPerfId(final String token, final int perfId);
+	public int removeEmployeePerformanceByPerfId(final String token, final int perfId, boolean secure);
 	
 	public List<EmployeePerformance> getEmployeePerformanceByEmployeeId(final String token,
-			final int employeeId);
+			final int employeeId, boolean secure);
 }

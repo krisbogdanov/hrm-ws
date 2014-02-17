@@ -16,37 +16,37 @@ public class ManageEmployeePerformanceTests extends TestCase {
 	
 	@Test
 	public void testGetEmpPerfById() {
-		List<EmployeePerformance> listWithWritePerm = manager.getEmployeePerformanceByEmployeeId(writeToken, 4);
+		List<EmployeePerformance> listWithWritePerm = manager.getEmployeePerformanceByEmployeeId(writeToken, 4, false);
 		assertNotNull(listWithWritePerm);
 		System.out.println("WRITE PERM:  " + listWithWritePerm.toString());
-		List<EmployeePerformance> listWithReadPerm = manager.getEmployeePerformanceByEmployeeId(readToken, 5);
+		List<EmployeePerformance> listWithReadPerm = manager.getEmployeePerformanceByEmployeeId(readToken, 5, false);
 		assertNull(listWithReadPerm);
-		List<EmployeePerformance> listWithOwnerPerm = manager.getEmployeePerformanceByEmployeeId(readToken, 4);
+		List<EmployeePerformance> listWithOwnerPerm = manager.getEmployeePerformanceByEmployeeId(readToken, 4, false);
 		assertNotNull(listWithWritePerm);
 		System.out.println("OWNER PERM:  " + listWithOwnerPerm.toString());
 	}
 	@Test
 	public void testEditPerformance() {
-		int edit = manager.editEmployeePerformance(writeToken, 1, "Edited");
+		int edit = manager.editEmployeePerformance(writeToken, 1, "Edited", false);
 		assertEquals(1, edit);
-		int failEdit = manager.editEmployeePerformance(readToken, 1, "Fail");
+		int failEdit = manager.editEmployeePerformance(readToken, 1, "Fail", false);
 		assertEquals(0, failEdit);
 	}
 	@Test
 	public void testAddPerfThenRemoveIt() {
-		int add = manager.addEmployeePerformance(writeToken, 6, "JUnit test", 2015);
+		int add = manager.addEmployeePerformance(writeToken, 6, "JUnit test", 2015, false);
 		assertEquals(1, add);
-		int failAdd = manager.addEmployeePerformance(readToken, 6, "fail test", 2015);
+		int failAdd = manager.addEmployeePerformance(readToken, 6, "fail test", 2015, false);
 		assertEquals(0, failAdd);
-		List<EmployeePerformance> listWithWritePerm = manager.getEmployeePerformanceByEmployeeId(writeToken, 6);
+		List<EmployeePerformance> listWithWritePerm = manager.getEmployeePerformanceByEmployeeId(writeToken, 6, false);
 		assertNotNull(listWithWritePerm);
 		Iterator<EmployeePerformance> it = listWithWritePerm.iterator();
 		while(it.hasNext()) {
 			EmployeePerformance perf = it.next();
 			if(perf.getPerfDescription().equals("JUnit test")) {
-				int failToRemove = manager.removeEmployeePerformanceByPerfId(readToken, perf.getPerfId());
+				int failToRemove = manager.removeEmployeePerformanceByPerfId(readToken, perf.getPerfId(), false);
 				assertEquals(0, failToRemove);
-				int remove = manager.removeEmployeePerformanceByPerfId(writeToken, perf.getPerfId());
+				int remove = manager.removeEmployeePerformanceByPerfId(writeToken, perf.getPerfId(), false);
 				assertEquals(1, remove);
 			}
 		}

@@ -10,6 +10,6 @@ package ws.services;
  *
  */
 public interface IManageToken {
-	public String getToken(final String username, final String password);
+	public String getToken(final String username, final String password, boolean secure);
 	public void deleteToken(final String token);
 }

@@ -14,7 +14,9 @@ import java.util.List;
 
 import ws.dao.Student;
 import ws.security.AuthorizationManager;
+import ws.security.InputValidationManager;
 import ws.security.Impl.AuthorizationManagerImpl;
+import ws.security.Impl.InputValidationManagerImpl;
 import ws.services.IManageStudent;
 import ws.utils.Impl.DatabaseConnection;
 import ws.utils.Impl.HRConstants;
@@ -27,11 +29,20 @@ public class ManageStudent implements IManageStudent {
 	
 	private final Connection connection = DatabaseConnection.getConnection();
 	private final AuthorizationManager authManager = new AuthorizationManagerImpl();
+	private final InputValidationManager validationManager = new InputValidationManagerImpl();
 	@Override
 	public int addStudent(String token, String studentName,
-			String studentSurname, String studentEmail, Date studentRegistered) {
+			String studentSurname, String studentEmail, Date studentRegistered, boolean secure) {
 		try {
-			Student student = getStudentByEmail(token, studentEmail);
+			if(secure) {
+				if(!validationManager.textValidation(studentName) ||
+						!validationManager.textValidation(studentSurname) ||
+						!validationManager.emailValidation(studentEmail) ||
+						!validationManager.dateValidation(studentRegistered)) {
+					return 0;
+				}
+			}
+			Student student = getStudentByEmail(token, studentEmail, secure);
 			if(student == null) {
 				PreparedStatement insert = connection.
 						prepareStatement(HRConstants.INSERT_STUDENT);
@@ -56,10 +67,15 @@ public class ManageStudent implements IManageStudent {
 	}
 
 	@Override
-	public int removeStudentByEmail(String token, String studentEmail) {
+	public int removeStudentByEmail(String token, String studentEmail, boolean secure) {
 		try {
+			if(secure) {
+				if(!validationManager.emailValidation(studentEmail)) {
+					return 0;
+				}
+			}
 			if(authManager.isAuthorizedTo(token, HRConstants.WRITE)) {
-				Student student = getStudentByEmail(token, studentEmail);
+				Student student = getStudentByEmail(token, studentEmail, secure);
 				PreparedStatement delete = connection.
 						prepareStatement(HRConstants.DELETE_STUDENT_BY_EMAIL);
 				delete.setString(1, studentEmail);
@@ -84,8 +100,13 @@ public class ManageStudent implements IManageStudent {
 	}
 
 	@Override
-	public List<Student> searchStudentByName(String token, String searchPhrase) {
+	public List<Student> searchStudentByName(String token, String searchPhrase, boolean secure) {
 		try {
+			if(secure) {
+				if(!validationManager.textValidation(searchPhrase)) {
+					return null;
+				}
+			}
 			if(authManager.isAuthorizedTo(token, HRConstants.READ)) {
 				PreparedStatement select = connection.
 						prepareStatement(HRConstants.SEARCH_STUDENT_BY_NAME);
@@ -109,7 +130,7 @@ public class ManageStudent implements IManageStudent {
 	}
 
 	@Override
-	public List<Student> getAllStudents(String token) {
+	public List<Student> getAllStudents(String token, boolean secure) {
 		try {
 			if(authManager.isAuthorizedTo(token, HRConstants.READ)) {
 				PreparedStatement select = connection.
@@ -147,8 +168,13 @@ public class ManageStudent implements IManageStudent {
 	}
 
 	@Override
-	public Student getStudentByEmail(String token, String studentEmail) {
+	public Student getStudentByEmail(String token, String studentEmail, boolean secure) {
 		try {
+			if(secure) {
+				if(!validationManager.emailValidation(studentEmail)) {
+					return null;
+				}
+			}
 			if(authManager.isAuthorizedTo(token, HRConstants.READ)) {
 				PreparedStatement select = connection.
 						prepareStatement(HRConstants.SELECT_STUDENT_BY_EMAIL);
@@ -177,8 +203,14 @@ public class ManageStudent implements IManageStudent {
 	}
 
 	@Override
-	public int registerStudentToEvent(String token, int studentId, int eventId) {
+	public int registerStudentToEvent(String token, int studentId, int eventId, boolean secure) {
 		try {
+			if(secure) {
+				if(!validationManager.integerValidation(studentId) ||
+						!validationManager.integerValidation(eventId)) {
+					return 0;
+				}
+			}
 			if(authManager.isAuthorizedTo(token, HRConstants.WRITE)) {
 				PreparedStatement check = connection.
 						prepareStatement(HRConstants.SELECT_EXACT_STUDENT_TO_EVENT_MAPPING);
@@ -210,8 +242,14 @@ public class ManageStudent implements IManageStudent {
 	}
 
 	@Override
-	public int unregisterStudentFromEvent(String token, int studentId, int eventId) {
+	public int unregisterStudentFromEvent(String token, int studentId, int eventId, boolean secure) {
 		try {
+			if(secure) {
+				if(!validationManager.integerValidation(studentId) ||
+						!validationManager.integerValidation(eventId)) {
+					return 0;
+				}
+			}
 			if(authManager.isAuthorizedTo(token, HRConstants.WRITE)) {
 				PreparedStatement delete = connection.
 						prepareStatement(HRConstants.UNREGISTER_STUDENT_FROM_EVENT);

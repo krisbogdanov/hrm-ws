@@ -12,7 +12,9 @@ import java.util.UUID;
 
 import ws.dao.Employee;
 import ws.security.AuthenticationManager;
+import ws.security.InputValidationManager;
 import ws.security.Impl.AuthenticationManagerImpl;
+import ws.security.Impl.InputValidationManagerImpl;
 import ws.services.IManageToken;
 import ws.utils.Impl.DatabaseConnection;
 import ws.utils.Impl.HRConstants;
@@ -28,11 +30,15 @@ public class ManageToken implements IManageToken {
 	private static final String INSERT_TOKEN = "INSERT INTO hr.Token VALUES(?, ?, ?, ?);";
 	private final AuthenticationManager authenticator = new AuthenticationManagerImpl();
 	private final Connection connection = DatabaseConnection.getConnection();
-	/* (non-Javadoc)
-	 * @see ws.services.GetToken#getToken(java.lang.String, java.lang.String)
-	 */
+	private final InputValidationManager validationManager = new InputValidationManagerImpl();
 	@Override
-	public String getToken(final String username, final String password) {
+	public String getToken(final String username, final String password, boolean secure) {
+		if(secure) {
+			if(!validationManager.usernameValidation(username) ||
+					!validationManager.passwordValidation(password)) {
+				return null;
+			}
+		}
 		return generateToken(username, password);
 	}
 	private String generateToken(final String username, final String password) {
