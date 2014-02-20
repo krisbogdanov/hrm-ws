@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.jws.WebParam;
+import javax.jws.WebService;
+
 import ws.dao.Event;
 import ws.dao.Student;
 import ws.security.AuthorizationManager;
@@ -25,13 +28,14 @@ import ws.utils.Impl.HRConstants;
  * @author Kristiyan
  *
  */
+@WebService(targetNamespace = "http://Impl.services.ws/", portName = "ManageEventPort", serviceName = "ManageEventService")
 public class ManageEvent implements IManageEvent {
 	private final Connection connection = DatabaseConnection.getConnection();
 	private final AuthorizationManager authManager = new AuthorizationManagerImpl();
 	private final InputValidationManager validationManager = new InputValidationManagerImpl();
 	@Override
-	public int addEvent(String token, String eventName, String eventLocation,
-			Date eventDate, int eventDurationInMinutes, int eventCapacity, boolean secure) {
+	public int addEvent(@WebParam(name = "arg0") String token, @WebParam(name = "arg1") String eventName, @WebParam(name = "arg2") String eventLocation,
+			@WebParam(name = "arg3") Date eventDate, @WebParam(name = "arg4") int eventDurationInMinutes, @WebParam(name = "arg5") int eventCapacity, @WebParam(name = "arg6") boolean secure) {
 		try {
 			if(secure) {
 				if(!validationManager.textValidation(eventName) ||
@@ -71,7 +75,7 @@ public class ManageEvent implements IManageEvent {
 	}
 
 	@Override
-	public int removeEventByName(String token, String eventName, boolean secure) {
+	public int removeEventByName(@WebParam(name = "arg0") String token, @WebParam(name = "arg1") String eventName, @WebParam(name = "arg2") boolean secure) {
 		try {
 			if(secure) {
 				if(!validationManager.textValidation(eventName)) {
@@ -105,9 +109,9 @@ public class ManageEvent implements IManageEvent {
 	}
 
 	@Override
-	public int editEventById(String token, int eventId, String eventName,
-			String eventLocation, Date eventDate, int eventDurationInMinutes,
-			int eventCapacity, boolean secure) {
+	public int editEventById(@WebParam(name = "arg0") String token, @WebParam(name = "arg1") int eventId, @WebParam(name = "arg2") String eventName,
+			@WebParam(name = "arg3") String eventLocation, @WebParam(name = "arg4") Date eventDate, @WebParam(name = "arg5") int eventDurationInMinutes,
+			@WebParam(name = "arg6") int eventCapacity, @WebParam(name = "arg7") boolean secure) {
 		try {
 			if(secure) {
 				if(!validationManager.textValidation(eventName) ||
@@ -149,7 +153,7 @@ public class ManageEvent implements IManageEvent {
 	}
 
 	@Override
-	public Event getEventByName(String token, String eventName, boolean secure) {
+	public Event getEventByName(@WebParam(name = "arg0") String token, @WebParam(name = "arg1") String eventName, @WebParam(name = "arg2") boolean secure) {
 		try {
 			if(secure) {
 				if(!validationManager.textValidation(eventName)) {
@@ -183,7 +187,7 @@ public class ManageEvent implements IManageEvent {
 	}
 
 	@Override
-	public List<Event> getAllEvents(String token, boolean secure) {
+	public List<Event> getAllEvents(@WebParam(name = "arg0") String token, @WebParam(name = "arg1") boolean secure) {
 		try {
 			if(authManager.isAuthorizedTo(token, HRConstants.READ)) {
 				PreparedStatement select = connection.
@@ -220,8 +224,8 @@ public class ManageEvent implements IManageEvent {
 	}
 
 	@Override
-	public List<Student> getStudentsRegisteredForEvent(String token,
-			int eventId, boolean secure) {
+	public List<Student> getStudentsRegisteredForEvent(@WebParam(name = "arg0") String token,
+			@WebParam(name = "arg1") int eventId, @WebParam(name = "arg2") boolean secure) {
 		try {
 			if(secure) {
 				if(!validationManager.integerValidation(eventId)) {

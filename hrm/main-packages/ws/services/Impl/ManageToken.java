@@ -10,6 +10,9 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.UUID;
 
+import javax.jws.WebParam;
+import javax.jws.WebService;
+
 import ws.dao.Employee;
 import ws.security.AuthenticationManager;
 import ws.security.InputValidationManager;
@@ -23,6 +26,7 @@ import ws.utils.Impl.HRConstants;
  * @author Kristiyan
  *
  */
+@WebService(targetNamespace = "http://Impl.services.ws/", portName = "ManageTokenPort", serviceName = "ManageTokenService")
 public class ManageToken implements IManageToken {
 	
 	private static final String SELECT_TOKEN_BY_EMPLOYEE_ID = "SELECT * FROM hr.Token WHERE employeeId = ?;";
@@ -32,7 +36,7 @@ public class ManageToken implements IManageToken {
 	private final Connection connection = DatabaseConnection.getConnection();
 	private final InputValidationManager validationManager = new InputValidationManagerImpl();
 	@Override
-	public String getToken(final String username, final String password, boolean secure) {
+	public String getToken(final @WebParam(name = "arg0") String username, final @WebParam(name = "arg1") String password, @WebParam(name = "arg2") boolean secure) {
 		if(secure) {
 			if(!validationManager.usernameValidation(username) ||
 					!validationManager.passwordValidation(password)) {
@@ -90,7 +94,7 @@ public class ManageToken implements IManageToken {
 		}
 	}
 	@Override
-	public void deleteToken(String token) {
+	public void deleteToken(@WebParam(name = "arg0") String token) {
 		try {
 			if(token != null) {
 				PreparedStatement deleteToken = connection.

@@ -10,6 +10,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.jws.WebParam;
+import javax.jws.WebService;
+
 import ws.dao.EmployeeDepartment;
 import ws.security.AuthorizationManager;
 import ws.security.InputValidationManager;
@@ -23,13 +26,14 @@ import ws.utils.Impl.HRConstants;
  * @author Kristiyan
  *
  */
+@WebService(targetNamespace = "http://Impl.services.ws/", portName = "ManageEmployeeDepartmentPort", serviceName = "ManageEmployeeDepartmentService")
 public class ManageEmployeeDepartment implements IManageEmployeeDepartment {
 	
 	private final Connection connection = DatabaseConnection.getConnection();
 	private final AuthorizationManager authManager = new AuthorizationManagerImpl();
 	private final InputValidationManager validationManager = new InputValidationManagerImpl();
 	@Override
-	public int addEmployeeDepartment(String token, String department, boolean secure) {
+	public int addEmployeeDepartment(@WebParam(name = "arg0") String token, @WebParam(name = "arg1") String department, @WebParam(name = "arg2") boolean secure) {
 		try{
 			if(secure) {
 				if(!validationManager.textValidation(department)) {
@@ -62,7 +66,7 @@ public class ManageEmployeeDepartment implements IManageEmployeeDepartment {
 	}
 
 	@Override
-	public int removeEmployeeDepartment(String token, String department, boolean secure) {
+	public int removeEmployeeDepartment(@WebParam(name = "arg0") String token, @WebParam(name = "arg1") String department, @WebParam(name = "arg2") boolean secure) {
 		try {
 			if(secure) {
 				if(!validationManager.textValidation(department)) {
@@ -89,7 +93,7 @@ public class ManageEmployeeDepartment implements IManageEmployeeDepartment {
 	}
 
 	@Override
-	public EmployeeDepartment getEmployeeDepartmentByName(String token, String department, boolean secure) {
+	public EmployeeDepartment getEmployeeDepartmentByName(@WebParam(name = "arg0") String token, @WebParam(name = "arg1") String department, @WebParam(name = "arg2") boolean secure) {
 		try {
 			if(secure) {
 				if(!validationManager.textValidation(department)) {
@@ -119,7 +123,7 @@ public class ManageEmployeeDepartment implements IManageEmployeeDepartment {
 	}
 
 	@Override
-	public List<EmployeeDepartment> getAllEmployeeDepartments(String token, boolean secure) {
+	public List<EmployeeDepartment> getAllEmployeeDepartments(@WebParam(name = "arg0") String token, @WebParam(name = "arg1") boolean secure) {
 		try {
 			if(authManager.isAuthorizedTo(token, HRConstants.READ)) {
 				PreparedStatement select = connection.

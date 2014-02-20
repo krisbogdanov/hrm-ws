@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="ManageEmployeeService" targetNamespace="http://Impl.services.ws/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://Impl.services.ws/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+<schema xmlns="http://www.w3.org/2001/XMLSchema">
+<import namespace="http://Impl.services.ws/" schemaLocation="manageemployee_schema1.xsd"/>
+</schema>
+  </wsdl:types>
+  <wsdl:message name="getBankDetailsByEmployeeId">
+    <wsdl:part name="parameters" element="tns:getBankDetailsByEmployeeId">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="removeEmployeeById">
+    <wsdl:part name="parameters" element="tns:removeEmployeeById">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="changeEmployeePasswordResponse">
+    <wsdl:part name="parameters" element="tns:changeEmployeePasswordResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="changeEmployeePassword">
+    <wsdl:part name="parameters" element="tns:changeEmployeePassword">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="registerEmployeeForGradTrainingResponse">
+    <wsdl:part name="parameters" element="tns:registerEmployeeForGradTrainingResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getEmployeeByUsername">
+    <wsdl:part name="parameters" element="tns:getEmployeeByUsername">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="editBankDetailsByEmployeeIdResponse">
+    <wsdl:part name="parameters" element="tns:editBankDetailsByEmployeeIdResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="editEmployeeById">
+    <wsdl:part name="parameters" element="tns:editEmployeeById">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="unregisterEmployeeFromGradTrainingResponse">
+    <wsdl:part name="parameters" element="tns:unregisterEmployeeFromGradTrainingResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getEmployeeById">
+    <wsdl:part name="parameters" element="tns:getEmployeeById">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="editBankDetailsByEmployeeId">
+    <wsdl:part name="parameters" element="tns:editBankDetailsByEmployeeId">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addEmployeeResponse">
+    <wsdl:part name="parameters" element="tns:addEmployeeResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="removeBankDetailsByEmployeeId">
+    <wsdl:part name="parameters" element="tns:removeBankDetailsByEmployeeId">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getBankDetailsByEmployeeIdResponse">
+    <wsdl:part name="parameters" element="tns:getBankDetailsByEmployeeIdResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addEmployee">
+    <wsdl:part name="parameters" element="tns:addEmployee">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="searchEmployeeByName">
+    <wsdl:part name="parameters" element="tns:searchEmployeeByName">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="unregisterEmployeeFromGradTraining">
+    <wsdl:part name="parameters" element="tns:unregisterEmployeeFromGradTraining">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addBankDetailsResponse">
+    <wsdl:part name="parameters" element="tns:addBankDetailsResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getEmployeeByUsernameResponse">
+    <wsdl:part name="parameters" element="tns:getEmployeeByUsernameResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="removeEmployeeByIdResponse">
+    <wsdl:part name="parameters" element="tns:removeEmployeeByIdResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllEmployees">
+    <wsdl:part name="parameters" element="tns:getAllEmployees">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="searchEmployeeByNameResponse">
+    <wsdl:part name="parameters" element="tns:searchEmployeeByNameResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="editEmployeeByIdResponse">
+    <wsdl:part name="parameters" element="tns:editEmployeeByIdResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addBankDetails">
+    <wsdl:part name="parameters" element="tns:addBankDetails">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getEmployeeByIdResponse">
+    <wsdl:part name="parameters" element="tns:getEmployeeByIdResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="removeBankDetailsByEmployeeIdResponse">
+    <wsdl:part name="parameters" element="tns:removeBankDetailsByEmployeeIdResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="registerEmployeeForGradTraining">
+    <wsdl:part name="parameters" element="tns:registerEmployeeForGradTraining">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllEmployeesResponse">
+    <wsdl:part name="parameters" element="tns:getAllEmployeesResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ManageEmployee">
+    <wsdl:operation name="registerEmployeeForGradTraining">
+      <wsdl:input name="registerEmployeeForGradTraining" message="tns:registerEmployeeForGradTraining">
+    </wsdl:input>
+      <wsdl:output name="registerEmployeeForGradTrainingResponse" message="tns:registerEmployeeForGradTrainingResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="removeBankDetailsByEmployeeId">
+      <wsdl:input name="removeBankDetailsByEmployeeId" message="tns:removeBankDetailsByEmployeeId">
+    </wsdl:input>
+      <wsdl:output name="removeBankDetailsByEmployeeIdResponse" message="tns:removeBankDetailsByEmployeeIdResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="unregisterEmployeeFromGradTraining">
+      <wsdl:input name="unregisterEmployeeFromGradTraining" message="tns:unregisterEmployeeFromGradTraining">
+    </wsdl:input>
+      <wsdl:output name="unregisterEmployeeFromGradTrainingResponse" message="tns:unregisterEmployeeFromGradTrainingResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addBankDetails">
+      <wsdl:input name="addBankDetails" message="tns:addBankDetails">
+    </wsdl:input>
+      <wsdl:output name="addBankDetailsResponse" message="tns:addBankDetailsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="changeEmployeePassword">
+      <wsdl:input name="changeEmployeePassword" message="tns:changeEmployeePassword">
+    </wsdl:input>
+      <wsdl:output name="changeEmployeePasswordResponse" message="tns:changeEmployeePasswordResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="editEmployeeById">
+      <wsdl:input name="editEmployeeById" message="tns:editEmployeeById">
+    </wsdl:input>
+      <wsdl:output name="editEmployeeByIdResponse" message="tns:editEmployeeByIdResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getEmployeeByUsername">
+      <wsdl:input name="getEmployeeByUsername" message="tns:getEmployeeByUsername">
+    </wsdl:input>
+      <wsdl:output name="getEmployeeByUsernameResponse" message="tns:getEmployeeByUsernameResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getEmployeeById">
+      <wsdl:input name="getEmployeeById" message="tns:getEmployeeById">
+    </wsdl:input>
+      <wsdl:output name="getEmployeeByIdResponse" message="tns:getEmployeeByIdResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addEmployee">
+      <wsdl:input name="addEmployee" message="tns:addEmployee">
+    </wsdl:input>
+      <wsdl:output name="addEmployeeResponse" message="tns:addEmployeeResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllEmployees">
+      <wsdl:input name="getAllEmployees" message="tns:getAllEmployees">
+    </wsdl:input>
+      <wsdl:output name="getAllEmployeesResponse" message="tns:getAllEmployeesResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="searchEmployeeByName">
+      <wsdl:input name="searchEmployeeByName" message="tns:searchEmployeeByName">
+    </wsdl:input>
+      <wsdl:output name="searchEmployeeByNameResponse" message="tns:searchEmployeeByNameResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="removeEmployeeById">
+      <wsdl:input name="removeEmployeeById" message="tns:removeEmployeeById">
+    </wsdl:input>
+      <wsdl:output name="removeEmployeeByIdResponse" message="tns:removeEmployeeByIdResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="editBankDetailsByEmployeeId">
+      <wsdl:input name="editBankDetailsByEmployeeId" message="tns:editBankDetailsByEmployeeId">
+    </wsdl:input>
+      <wsdl:output name="editBankDetailsByEmployeeIdResponse" message="tns:editBankDetailsByEmployeeIdResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getBankDetailsByEmployeeId">
+      <wsdl:input name="getBankDetailsByEmployeeId" message="tns:getBankDetailsByEmployeeId">
+    </wsdl:input>
+      <wsdl:output name="getBankDetailsByEmployeeIdResponse" message="tns:getBankDetailsByEmployeeIdResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ManageEmployeeServiceSoapBinding" type="tns:ManageEmployee">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="registerEmployeeForGradTraining">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="registerEmployeeForGradTraining">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="registerEmployeeForGradTrainingResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="removeBankDetailsByEmployeeId">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="removeBankDetailsByEmployeeId">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="removeBankDetailsByEmployeeIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addBankDetails">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="addBankDetails">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="addBankDetailsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="unregisterEmployeeFromGradTraining">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="unregisterEmployeeFromGradTraining">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="unregisterEmployeeFromGradTrainingResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="changeEmployeePassword">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="changeEmployeePassword">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="changeEmployeePasswordResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="editEmployeeById">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="editEmployeeById">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="editEmployeeByIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getEmployeeByUsername">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getEmployeeByUsername">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getEmployeeByUsernameResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getEmployeeById">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getEmployeeById">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getEmployeeByIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addEmployee">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="addEmployee">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="addEmployeeResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllEmployees">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getAllEmployees">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getAllEmployeesResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="searchEmployeeByName">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="searchEmployeeByName">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="searchEmployeeByNameResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="removeEmployeeById">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="removeEmployeeById">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="removeEmployeeByIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="editBankDetailsByEmployeeId">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="editBankDetailsByEmployeeId">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="editBankDetailsByEmployeeIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getBankDetailsByEmployeeId">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getBankDetailsByEmployeeId">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getBankDetailsByEmployeeIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ManageEmployeeService">
+    <wsdl:port name="ManageEmployeePort" binding="tns:ManageEmployeeServiceSoapBinding">
+      <soap:address location="http://localhost:9090/ManageEmployeePort"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

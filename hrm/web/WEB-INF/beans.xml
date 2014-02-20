@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+	<jaxws:endpoint xmlns:tns="http://Impl.services.ws/" id="manageemployee"
+		implementor="ws.services.Impl.ManageEmployee" wsdlLocation="wsdl/manageemployee.wsdl"
+		endpointName="tns:ManageEmployeePort" serviceName="tns:ManageEmployeeService"
+		address="/ManageEmployeePort">
+		<jaxws:features>
+			<bean class="org.apache.cxf.feature.LoggingFeature" />
+		</jaxws:features>
+	</jaxws:endpoint>
+	<jaxws:endpoint xmlns:tns="http://Impl.services.ws/" id="manageemployeedepartment"
+		implementor="ws.services.Impl.ManageEmployeeDepartment" wsdlLocation="wsdl/manageemployeedepartment.wsdl"
+		endpointName="tns:ManageEmployeeDepartmentPort" serviceName="tns:ManageEmployeeDepartmentService"
+		address="/ManageEmployeeDepartmentPort">
+		<jaxws:features>
+			<bean class="org.apache.cxf.feature.LoggingFeature" />
+		</jaxws:features>
+	</jaxws:endpoint>
+	<jaxws:endpoint xmlns:tns="http://Impl.services.ws/" id="manageemployeeperformance"
+		implementor="ws.services.Impl.ManageEmployeePerformance" wsdlLocation="wsdl/manageemployeeperformance.wsdl"
+		endpointName="tns:ManageEmployeePerformancePort" serviceName="tns:ManageEmployeePerformanceService"
+		address="/ManageEmployeePerformancePort">
+		<jaxws:features>
+			<bean class="org.apache.cxf.feature.LoggingFeature" />
+		</jaxws:features>
+	</jaxws:endpoint>
+	<jaxws:endpoint xmlns:tns="http://Impl.services.ws/" id="manageevent"
+		implementor="ws.services.Impl.ManageEvent" wsdlLocation="wsdl/manageevent.wsdl"
+		endpointName="tns:ManageEventPort" serviceName="tns:ManageEventService"
+		address="/ManageEventPort">
+		<jaxws:features>
+			<bean class="org.apache.cxf.feature.LoggingFeature" />
+		</jaxws:features>
+	</jaxws:endpoint>
+	<jaxws:endpoint xmlns:tns="http://Impl.services.ws/" id="managegraduatetraining"
+		implementor="ws.services.Impl.ManageGraduateTraining" wsdlLocation="wsdl/managegraduatetraining.wsdl"
+		endpointName="tns:ManageGraduateTrainingPort" serviceName="tns:ManageGraduateTrainingService"
+		address="/ManageGraduateTrainingPort">
+		<jaxws:features>
+			<bean class="org.apache.cxf.feature.LoggingFeature" />
+		</jaxws:features>
+	</jaxws:endpoint>
+	<jaxws:endpoint xmlns:tns="http://Impl.services.ws/" id="managestudent"
+		implementor="ws.services.Impl.ManageStudent" wsdlLocation="wsdl/managestudent.wsdl"
+		endpointName="tns:ManageStudentPort" serviceName="tns:ManageStudentService"
+		address="/ManageStudentPort">
+		<jaxws:features>
+			<bean class="org.apache.cxf.feature.LoggingFeature" />
+		</jaxws:features>
+	</jaxws:endpoint>
+	<jaxws:endpoint xmlns:tns="http://Impl.services.ws/" id="managetoken"
+		implementor="ws.services.Impl.ManageToken" wsdlLocation="wsdl/managetoken.wsdl"
+		endpointName="tns:ManageTokenPort" serviceName="tns:ManageTokenService"
+		address="/ManageTokenPort">
+		<jaxws:features>
+			<bean class="org.apache.cxf.feature.LoggingFeature" />
+		</jaxws:features>
+	</jaxws:endpoint>
+</beans>

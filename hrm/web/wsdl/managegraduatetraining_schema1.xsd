@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://Impl.services.ws/" elementFormDefault="unqualified" targetNamespace="http://Impl.services.ws/" version="1.0">
+<xs:element name="addGraduateTraining" type="tns:addGraduateTraining"/>
+<xs:element name="addGraduateTrainingResponse" type="tns:addGraduateTrainingResponse"/>
+<xs:element name="getAllGraduateTraining" type="tns:getAllGraduateTraining"/>
+<xs:element name="getAllGraduateTrainingResponse" type="tns:getAllGraduateTrainingResponse"/>
+<xs:element name="getEmployeesRegisteredForGradTraining" type="tns:getEmployeesRegisteredForGradTraining"/>
+<xs:element name="getEmployeesRegisteredForGradTrainingResponse" type="tns:getEmployeesRegisteredForGradTrainingResponse"/>
+<xs:element name="getGraduateTrainingByLocation" type="tns:getGraduateTrainingByLocation"/>
+<xs:element name="getGraduateTrainingByLocationResponse" type="tns:getGraduateTrainingByLocationResponse"/>
+<xs:element name="removeGraduateTrainigByLocation" type="tns:removeGraduateTrainigByLocation"/>
+<xs:element name="removeGraduateTrainigByLocationResponse" type="tns:removeGraduateTrainigByLocationResponse"/>
+<xs:complexType name="getEmployeesRegisteredForGradTraining">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element name="arg1" type="xs:int"/>
+      <xs:element name="arg2" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="getEmployeesRegisteredForGradTrainingResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:employee"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="employee">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="employeeAddress" type="xs:string"/>
+      <xs:element name="employeeDepartment" type="xs:int"/>
+      <xs:element minOccurs="0" name="employeeEmail" type="xs:string"/>
+      <xs:element name="employeeId" type="xs:int"/>
+      <xs:element minOccurs="0" name="employeeJoined" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="employeeName" type="xs:string"/>
+      <xs:element minOccurs="0" name="employeePassword" type="xs:string"/>
+      <xs:element minOccurs="0" name="employeePhone" type="xs:string"/>
+      <xs:element minOccurs="0" name="employeeRole" type="xs:string"/>
+      <xs:element minOccurs="0" name="employeeSSN" type="xs:string"/>
+      <xs:element minOccurs="0" name="employeeSurname" type="xs:string"/>
+      <xs:element minOccurs="0" name="employeeUsername" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="getGraduateTrainingByLocation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg1" type="xs:string"/>
+      <xs:element name="arg2" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="getGraduateTrainingByLocationResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:graduateTraining"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="graduateTraining">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="gradTrainingEnds" type="xs:dateTime"/>
+      <xs:element name="gradTrainingId" type="xs:int"/>
+      <xs:element minOccurs="0" name="gradTrainingLocation" type="xs:string"/>
+      <xs:element minOccurs="0" name="gradTrainingStarts" type="xs:dateTime"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="addGraduateTraining">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg1" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg2" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="arg3" type="xs:dateTime"/>
+      <xs:element name="arg4" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="addGraduateTrainingResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="removeGraduateTrainigByLocation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg1" type="xs:string"/>
+      <xs:element name="arg2" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="removeGraduateTrainigByLocationResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="getAllGraduateTraining">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element name="arg1" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="getAllGraduateTrainingResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:graduateTraining"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

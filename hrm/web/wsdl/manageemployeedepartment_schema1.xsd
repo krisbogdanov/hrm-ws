@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://Impl.services.ws/" elementFormDefault="unqualified" targetNamespace="http://Impl.services.ws/" version="1.0">
+<xs:element name="addEmployeeDepartment" type="tns:addEmployeeDepartment"/>
+<xs:element name="addEmployeeDepartmentResponse" type="tns:addEmployeeDepartmentResponse"/>
+<xs:element name="getAllEmployeeDepartments" type="tns:getAllEmployeeDepartments"/>
+<xs:element name="getAllEmployeeDepartmentsResponse" type="tns:getAllEmployeeDepartmentsResponse"/>
+<xs:element name="getEmployeeDepartmentByName" type="tns:getEmployeeDepartmentByName"/>
+<xs:element name="getEmployeeDepartmentByNameResponse" type="tns:getEmployeeDepartmentByNameResponse"/>
+<xs:element name="removeEmployeeDepartment" type="tns:removeEmployeeDepartment"/>
+<xs:element name="removeEmployeeDepartmentResponse" type="tns:removeEmployeeDepartmentResponse"/>
+<xs:complexType name="addEmployeeDepartment">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg1" type="xs:string"/>
+      <xs:element name="arg2" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="addEmployeeDepartmentResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="getEmployeeDepartmentByName">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg1" type="xs:string"/>
+      <xs:element name="arg2" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="getEmployeeDepartmentByNameResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:employeeDepartment"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="employeeDepartment">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="department" type="xs:string"/>
+      <xs:element name="departmentId" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="getAllEmployeeDepartments">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element name="arg1" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="getAllEmployeeDepartmentsResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:employeeDepartment"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="removeEmployeeDepartment">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg1" type="xs:string"/>
+      <xs:element name="arg2" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="removeEmployeeDepartmentResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

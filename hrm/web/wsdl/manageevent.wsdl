@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="ManageEventService" targetNamespace="http://Impl.services.ws/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://Impl.services.ws/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+<schema xmlns="http://www.w3.org/2001/XMLSchema">
+<import namespace="http://Impl.services.ws/" schemaLocation="manageevent_schema1.xsd"/>
+</schema>
+  </wsdl:types>
+  <wsdl:message name="editEventById">
+    <wsdl:part name="parameters" element="tns:editEventById">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="removeEventByName">
+    <wsdl:part name="parameters" element="tns:removeEventByName">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllEvents">
+    <wsdl:part name="parameters" element="tns:getAllEvents">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="removeEventByNameResponse">
+    <wsdl:part name="parameters" element="tns:removeEventByNameResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addEventResponse">
+    <wsdl:part name="parameters" element="tns:addEventResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getEventByName">
+    <wsdl:part name="parameters" element="tns:getEventByName">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllEventsResponse">
+    <wsdl:part name="parameters" element="tns:getAllEventsResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addEvent">
+    <wsdl:part name="parameters" element="tns:addEvent">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getStudentsRegisteredForEventResponse">
+    <wsdl:part name="parameters" element="tns:getStudentsRegisteredForEventResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getEventByNameResponse">
+    <wsdl:part name="parameters" element="tns:getEventByNameResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getStudentsRegisteredForEvent">
+    <wsdl:part name="parameters" element="tns:getStudentsRegisteredForEvent">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="editEventByIdResponse">
+    <wsdl:part name="parameters" element="tns:editEventByIdResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ManageEvent">
+    <wsdl:operation name="getEventByName">
+      <wsdl:input name="getEventByName" message="tns:getEventByName">
+    </wsdl:input>
+      <wsdl:output name="getEventByNameResponse" message="tns:getEventByNameResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="removeEventByName">
+      <wsdl:input name="removeEventByName" message="tns:removeEventByName">
+    </wsdl:input>
+      <wsdl:output name="removeEventByNameResponse" message="tns:removeEventByNameResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllEvents">
+      <wsdl:input name="getAllEvents" message="tns:getAllEvents">
+    </wsdl:input>
+      <wsdl:output name="getAllEventsResponse" message="tns:getAllEventsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getStudentsRegisteredForEvent">
+      <wsdl:input name="getStudentsRegisteredForEvent" message="tns:getStudentsRegisteredForEvent">
+    </wsdl:input>
+      <wsdl:output name="getStudentsRegisteredForEventResponse" message="tns:getStudentsRegisteredForEventResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addEvent">
+      <wsdl:input name="addEvent" message="tns:addEvent">
+    </wsdl:input>
+      <wsdl:output name="addEventResponse" message="tns:addEventResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="editEventById">
+      <wsdl:input name="editEventById" message="tns:editEventById">
+    </wsdl:input>
+      <wsdl:output name="editEventByIdResponse" message="tns:editEventByIdResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ManageEventServiceSoapBinding" type="tns:ManageEvent">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getEventByName">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getEventByName">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getEventByNameResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="removeEventByName">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="removeEventByName">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="removeEventByNameResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllEvents">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getAllEvents">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getAllEventsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getStudentsRegisteredForEvent">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getStudentsRegisteredForEvent">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getStudentsRegisteredForEventResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addEvent">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="addEvent">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="addEventResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="editEventById">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="editEventById">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="editEventByIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ManageEventService">
+    <wsdl:port name="ManageEventPort" binding="tns:ManageEventServiceSoapBinding">
+      <soap:address location="http://localhost:9090/ManageEventPort"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

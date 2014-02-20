@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="ManageGraduateTrainingService" targetNamespace="http://Impl.services.ws/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://Impl.services.ws/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+<schema xmlns="http://www.w3.org/2001/XMLSchema">
+<import namespace="http://Impl.services.ws/" schemaLocation="managegraduatetraining_schema1.xsd"/>
+</schema>
+  </wsdl:types>
+  <wsdl:message name="getAllGraduateTraining">
+    <wsdl:part name="parameters" element="tns:getAllGraduateTraining">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="removeGraduateTrainigByLocationResponse">
+    <wsdl:part name="parameters" element="tns:removeGraduateTrainigByLocationResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllGraduateTrainingResponse">
+    <wsdl:part name="parameters" element="tns:getAllGraduateTrainingResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addGraduateTrainingResponse">
+    <wsdl:part name="parameters" element="tns:addGraduateTrainingResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getGraduateTrainingByLocation">
+    <wsdl:part name="parameters" element="tns:getGraduateTrainingByLocation">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getEmployeesRegisteredForGradTraining">
+    <wsdl:part name="parameters" element="tns:getEmployeesRegisteredForGradTraining">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addGraduateTraining">
+    <wsdl:part name="parameters" element="tns:addGraduateTraining">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getEmployeesRegisteredForGradTrainingResponse">
+    <wsdl:part name="parameters" element="tns:getEmployeesRegisteredForGradTrainingResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getGraduateTrainingByLocationResponse">
+    <wsdl:part name="parameters" element="tns:getGraduateTrainingByLocationResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="removeGraduateTrainigByLocation">
+    <wsdl:part name="parameters" element="tns:removeGraduateTrainigByLocation">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ManageGraduateTraining">
+    <wsdl:operation name="getEmployeesRegisteredForGradTraining">
+      <wsdl:input name="getEmployeesRegisteredForGradTraining" message="tns:getEmployeesRegisteredForGradTraining">
+    </wsdl:input>
+      <wsdl:output name="getEmployeesRegisteredForGradTrainingResponse" message="tns:getEmployeesRegisteredForGradTrainingResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getGraduateTrainingByLocation">
+      <wsdl:input name="getGraduateTrainingByLocation" message="tns:getGraduateTrainingByLocation">
+    </wsdl:input>
+      <wsdl:output name="getGraduateTrainingByLocationResponse" message="tns:getGraduateTrainingByLocationResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addGraduateTraining">
+      <wsdl:input name="addGraduateTraining" message="tns:addGraduateTraining">
+    </wsdl:input>
+      <wsdl:output name="addGraduateTrainingResponse" message="tns:addGraduateTrainingResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="removeGraduateTrainigByLocation">
+      <wsdl:input name="removeGraduateTrainigByLocation" message="tns:removeGraduateTrainigByLocation">
+    </wsdl:input>
+      <wsdl:output name="removeGraduateTrainigByLocationResponse" message="tns:removeGraduateTrainigByLocationResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllGraduateTraining">
+      <wsdl:input name="getAllGraduateTraining" message="tns:getAllGraduateTraining">
+    </wsdl:input>
+      <wsdl:output name="getAllGraduateTrainingResponse" message="tns:getAllGraduateTrainingResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ManageGraduateTrainingServiceSoapBinding" type="tns:ManageGraduateTraining">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getEmployeesRegisteredForGradTraining">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getEmployeesRegisteredForGradTraining">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getEmployeesRegisteredForGradTrainingResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getGraduateTrainingByLocation">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getGraduateTrainingByLocation">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getGraduateTrainingByLocationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addGraduateTraining">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="addGraduateTraining">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="addGraduateTrainingResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="removeGraduateTrainigByLocation">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="removeGraduateTrainigByLocation">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="removeGraduateTrainigByLocationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllGraduateTraining">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getAllGraduateTraining">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getAllGraduateTrainingResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ManageGraduateTrainingService">
+    <wsdl:port name="ManageGraduateTrainingPort" binding="tns:ManageGraduateTrainingServiceSoapBinding">
+      <soap:address location="http://localhost:9090/ManageGraduateTrainingPort"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

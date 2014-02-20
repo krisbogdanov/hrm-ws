@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://Impl.services.ws/" elementFormDefault="unqualified" targetNamespace="http://Impl.services.ws/" version="1.0">
+<xs:element name="addEmployeePerformance" type="tns:addEmployeePerformance"/>
+<xs:element name="addEmployeePerformanceResponse" type="tns:addEmployeePerformanceResponse"/>
+<xs:element name="editEmployeePerformance" type="tns:editEmployeePerformance"/>
+<xs:element name="editEmployeePerformanceResponse" type="tns:editEmployeePerformanceResponse"/>
+<xs:element name="getEmployeePerformanceByEmployeeId" type="tns:getEmployeePerformanceByEmployeeId"/>
+<xs:element name="getEmployeePerformanceByEmployeeIdResponse" type="tns:getEmployeePerformanceByEmployeeIdResponse"/>
+<xs:element name="removeEmployeePerformanceByPerfId" type="tns:removeEmployeePerformanceByPerfId"/>
+<xs:element name="removeEmployeePerformanceByPerfIdResponse" type="tns:removeEmployeePerformanceByPerfIdResponse"/>
+<xs:complexType name="removeEmployeePerformanceByPerfId">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element name="arg1" type="xs:int"/>
+      <xs:element name="arg2" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="removeEmployeePerformanceByPerfIdResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="getEmployeePerformanceByEmployeeId">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element name="arg1" type="xs:int"/>
+      <xs:element name="arg2" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="getEmployeePerformanceByEmployeeIdResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:employeePerformance"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="employeePerformance">
+    <xs:sequence>
+      <xs:element name="employeeId" type="xs:int"/>
+      <xs:element minOccurs="0" name="perfDescription" type="xs:string"/>
+      <xs:element name="perfId" type="xs:int"/>
+      <xs:element name="perfYear" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="editEmployeePerformance">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element name="arg1" type="xs:int"/>
+      <xs:element minOccurs="0" name="arg2" type="xs:string"/>
+      <xs:element name="arg3" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="editEmployeePerformanceResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="addEmployeePerformance">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element name="arg1" type="xs:int"/>
+      <xs:element minOccurs="0" name="arg2" type="xs:string"/>
+      <xs:element name="arg3" type="xs:int"/>
+      <xs:element name="arg4" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="addEmployeePerformanceResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

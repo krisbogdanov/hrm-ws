@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.jws.WebParam;
+import javax.jws.WebService;
+
 
 import ws.dao.Student;
 import ws.security.AuthorizationManager;
@@ -25,14 +28,15 @@ import ws.utils.Impl.HRConstants;
  * @author Kristiyan
  *
  */
+@WebService(targetNamespace = "http://Impl.services.ws/", portName = "ManageStudentPort", serviceName = "ManageStudentService")
 public class ManageStudent implements IManageStudent {
 	
 	private final Connection connection = DatabaseConnection.getConnection();
 	private final AuthorizationManager authManager = new AuthorizationManagerImpl();
 	private final InputValidationManager validationManager = new InputValidationManagerImpl();
 	@Override
-	public int addStudent(String token, String studentName,
-			String studentSurname, String studentEmail, Date studentRegistered, boolean secure) {
+	public int addStudent(@WebParam(name = "arg0") String token, @WebParam(name = "arg1") String studentName,
+			@WebParam(name = "arg2") String studentSurname, @WebParam(name = "arg3") String studentEmail, @WebParam(name = "arg4") Date studentRegistered, @WebParam(name = "arg5") boolean secure) {
 		try {
 			if(secure) {
 				if(!validationManager.textValidation(studentName) ||
@@ -67,7 +71,7 @@ public class ManageStudent implements IManageStudent {
 	}
 
 	@Override
-	public int removeStudentByEmail(String token, String studentEmail, boolean secure) {
+	public int removeStudentByEmail(@WebParam(name = "arg0") String token, @WebParam(name = "arg1") String studentEmail, @WebParam(name = "arg2") boolean secure) {
 		try {
 			if(secure) {
 				if(!validationManager.emailValidation(studentEmail)) {
@@ -100,7 +104,7 @@ public class ManageStudent implements IManageStudent {
 	}
 
 	@Override
-	public List<Student> searchStudentByName(String token, String searchPhrase, boolean secure) {
+	public List<Student> searchStudentByName(@WebParam(name = "arg0") String token, @WebParam(name = "arg1") String searchPhrase, @WebParam(name = "arg2") boolean secure) {
 		try {
 			if(secure) {
 				if(!validationManager.textValidation(searchPhrase)) {
@@ -130,7 +134,7 @@ public class ManageStudent implements IManageStudent {
 	}
 
 	@Override
-	public List<Student> getAllStudents(String token, boolean secure) {
+	public List<Student> getAllStudents(@WebParam(name = "arg0") String token, @WebParam(name = "arg1") boolean secure) {
 		try {
 			if(authManager.isAuthorizedTo(token, HRConstants.READ)) {
 				PreparedStatement select = connection.
@@ -168,7 +172,7 @@ public class ManageStudent implements IManageStudent {
 	}
 
 	@Override
-	public Student getStudentByEmail(String token, String studentEmail, boolean secure) {
+	public Student getStudentByEmail(@WebParam(name = "arg0") String token, @WebParam(name = "arg1") String studentEmail, @WebParam(name = "arg2") boolean secure) {
 		try {
 			if(secure) {
 				if(!validationManager.emailValidation(studentEmail)) {
@@ -203,7 +207,7 @@ public class ManageStudent implements IManageStudent {
 	}
 
 	@Override
-	public int registerStudentToEvent(String token, int studentId, int eventId, boolean secure) {
+	public int registerStudentToEvent(@WebParam(name = "arg0") String token, @WebParam(name = "arg1") int studentId, @WebParam(name = "arg2") int eventId, @WebParam(name = "arg3") boolean secure) {
 		try {
 			if(secure) {
 				if(!validationManager.integerValidation(studentId) ||
@@ -242,7 +246,7 @@ public class ManageStudent implements IManageStudent {
 	}
 
 	@Override
-	public int unregisterStudentFromEvent(String token, int studentId, int eventId, boolean secure) {
+	public int unregisterStudentFromEvent(@WebParam(name = "arg0") String token, @WebParam(name = "arg1") int studentId, @WebParam(name = "arg2") int eventId, @WebParam(name = "arg3") boolean secure) {
 		try {
 			if(secure) {
 				if(!validationManager.integerValidation(studentId) ||

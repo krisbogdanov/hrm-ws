@@ -10,6 +10,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.jws.WebParam;
+import javax.jws.WebService;
+
 import ws.dao.EmployeePerformance;
 import ws.security.AuthorizationManager;
 import ws.security.InputValidationManager;
@@ -23,14 +26,15 @@ import ws.utils.Impl.HRConstants;
  * @author Kristiyan
  *
  */
+@WebService(targetNamespace = "http://Impl.services.ws/", portName = "ManageEmployeePerformancePort", serviceName = "ManageEmployeePerformanceService")
 public class ManageEmployeePerformance implements IManageEmployeePerformance {
 	
 	private final Connection connection = DatabaseConnection.getConnection();
 	private final AuthorizationManager authManager = new AuthorizationManagerImpl();
 	private final InputValidationManager validationManager = new InputValidationManagerImpl();
 	@Override
-	public int addEmployeePerformance(String token, int employeeId,
-			String perfDescription, int year, boolean secure) {
+	public int addEmployeePerformance(@WebParam(name = "arg0") String token, @WebParam(name = "arg1") int employeeId,
+			@WebParam(name = "arg2") String perfDescription, @WebParam(name = "arg3") int year, @WebParam(name = "arg4") boolean secure) {
 		try {
 			if(secure) {
 				if(!validationManager.integerValidation(employeeId) ||
@@ -62,8 +66,8 @@ public class ManageEmployeePerformance implements IManageEmployeePerformance {
 	}
 
 	@Override
-	public int editEmployeePerformance(String token, int perfId,
-			String perfDescription, boolean secure) {
+	public int editEmployeePerformance(@WebParam(name = "arg0") String token, @WebParam(name = "arg1") int perfId,
+			@WebParam(name = "arg2") String perfDescription, @WebParam(name = "arg3") boolean secure) {
 		try {
 			if(secure) {
 				if(!validationManager.integerValidation(perfId) ||
@@ -93,8 +97,8 @@ public class ManageEmployeePerformance implements IManageEmployeePerformance {
 
 
 	@Override
-	public int removeEmployeePerformanceByPerfId(String token,
-			int perfId, boolean secure) {
+	public int removeEmployeePerformanceByPerfId(@WebParam(name = "arg0") String token,
+			@WebParam(name = "arg1") int perfId, @WebParam(name = "arg2") boolean secure) {
 		try {
 			if(secure) {
 				if(!validationManager.integerValidation(perfId)) {
@@ -122,8 +126,8 @@ public class ManageEmployeePerformance implements IManageEmployeePerformance {
 	}
 
 	@Override
-	public List<EmployeePerformance> getEmployeePerformanceByEmployeeId(String token,
-			int employeeId, boolean secure) {
+	public List<EmployeePerformance> getEmployeePerformanceByEmployeeId(@WebParam(name = "arg0") String token,
+			@WebParam(name = "arg1") int employeeId, @WebParam(name = "arg2") boolean secure) {
 		try {
 			if(secure) {
 				if(!validationManager.integerValidation(employeeId)) {

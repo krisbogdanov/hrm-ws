@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="ManageStudentService" targetNamespace="http://Impl.services.ws/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://Impl.services.ws/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+<schema xmlns="http://www.w3.org/2001/XMLSchema">
+<import namespace="http://Impl.services.ws/" schemaLocation="managestudent_schema1.xsd"/>
+</schema>
+  </wsdl:types>
+  <wsdl:message name="removeStudentByEmailResponse">
+    <wsdl:part name="parameters" element="tns:removeStudentByEmailResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getStudentByEmail">
+    <wsdl:part name="parameters" element="tns:getStudentByEmail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="registerStudentToEvent">
+    <wsdl:part name="parameters" element="tns:registerStudentToEvent">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addStudent">
+    <wsdl:part name="parameters" element="tns:addStudent">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="searchStudentByName">
+    <wsdl:part name="parameters" element="tns:searchStudentByName">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="removeStudentByEmail">
+    <wsdl:part name="parameters" element="tns:removeStudentByEmail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllStudentsResponse">
+    <wsdl:part name="parameters" element="tns:getAllStudentsResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="registerStudentToEventResponse">
+    <wsdl:part name="parameters" element="tns:registerStudentToEventResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getStudentByEmailResponse">
+    <wsdl:part name="parameters" element="tns:getStudentByEmailResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllStudents">
+    <wsdl:part name="parameters" element="tns:getAllStudents">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="unregisterStudentFromEvent">
+    <wsdl:part name="parameters" element="tns:unregisterStudentFromEvent">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addStudentResponse">
+    <wsdl:part name="parameters" element="tns:addStudentResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="unregisterStudentFromEventResponse">
+    <wsdl:part name="parameters" element="tns:unregisterStudentFromEventResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="searchStudentByNameResponse">
+    <wsdl:part name="parameters" element="tns:searchStudentByNameResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ManageStudent">
+    <wsdl:operation name="removeStudentByEmail">
+      <wsdl:input name="removeStudentByEmail" message="tns:removeStudentByEmail">
+    </wsdl:input>
+      <wsdl:output name="removeStudentByEmailResponse" message="tns:removeStudentByEmailResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addStudent">
+      <wsdl:input name="addStudent" message="tns:addStudent">
+    </wsdl:input>
+      <wsdl:output name="addStudentResponse" message="tns:addStudentResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="searchStudentByName">
+      <wsdl:input name="searchStudentByName" message="tns:searchStudentByName">
+    </wsdl:input>
+      <wsdl:output name="searchStudentByNameResponse" message="tns:searchStudentByNameResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="registerStudentToEvent">
+      <wsdl:input name="registerStudentToEvent" message="tns:registerStudentToEvent">
+    </wsdl:input>
+      <wsdl:output name="registerStudentToEventResponse" message="tns:registerStudentToEventResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getStudentByEmail">
+      <wsdl:input name="getStudentByEmail" message="tns:getStudentByEmail">
+    </wsdl:input>
+      <wsdl:output name="getStudentByEmailResponse" message="tns:getStudentByEmailResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllStudents">
+      <wsdl:input name="getAllStudents" message="tns:getAllStudents">
+    </wsdl:input>
+      <wsdl:output name="getAllStudentsResponse" message="tns:getAllStudentsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="unregisterStudentFromEvent">
+      <wsdl:input name="unregisterStudentFromEvent" message="tns:unregisterStudentFromEvent">
+    </wsdl:input>
+      <wsdl:output name="unregisterStudentFromEventResponse" message="tns:unregisterStudentFromEventResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ManageStudentServiceSoapBinding" type="tns:ManageStudent">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="removeStudentByEmail">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="removeStudentByEmail">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="removeStudentByEmailResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addStudent">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="addStudent">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="addStudentResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="registerStudentToEvent">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="registerStudentToEvent">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="registerStudentToEventResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="searchStudentByName">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="searchStudentByName">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="searchStudentByNameResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getStudentByEmail">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getStudentByEmail">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getStudentByEmailResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllStudents">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getAllStudents">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getAllStudentsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="unregisterStudentFromEvent">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="unregisterStudentFromEvent">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="unregisterStudentFromEventResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ManageStudentService">
+    <wsdl:port name="ManageStudentPort" binding="tns:ManageStudentServiceSoapBinding">
+      <soap:address location="http://localhost:9090/ManageStudentPort"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

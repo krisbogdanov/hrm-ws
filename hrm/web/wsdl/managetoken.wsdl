@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="ManageTokenService" targetNamespace="http://Impl.services.ws/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://Impl.services.ws/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+<schema xmlns="http://www.w3.org/2001/XMLSchema">
+<import namespace="http://Impl.services.ws/" schemaLocation="managetoken_schema1.xsd"/>
+</schema>
+  </wsdl:types>
+  <wsdl:message name="getToken">
+    <wsdl:part name="parameters" element="tns:getToken">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getTokenResponse">
+    <wsdl:part name="parameters" element="tns:getTokenResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteTokenResponse">
+    <wsdl:part name="parameters" element="tns:deleteTokenResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteToken">
+    <wsdl:part name="parameters" element="tns:deleteToken">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ManageToken">
+    <wsdl:operation name="getToken">
+      <wsdl:input name="getToken" message="tns:getToken">
+    </wsdl:input>
+      <wsdl:output name="getTokenResponse" message="tns:getTokenResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteToken">
+      <wsdl:input name="deleteToken" message="tns:deleteToken">
+    </wsdl:input>
+      <wsdl:output name="deleteTokenResponse" message="tns:deleteTokenResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ManageTokenServiceSoapBinding" type="tns:ManageToken">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getToken">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getToken">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getTokenResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteToken">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="deleteToken">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="deleteTokenResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ManageTokenService">
+    <wsdl:port name="ManageTokenPort" binding="tns:ManageTokenServiceSoapBinding">
+      <soap:address location="http://localhost:9090/ManageTokenPort"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

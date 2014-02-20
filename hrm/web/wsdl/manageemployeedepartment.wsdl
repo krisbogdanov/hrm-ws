@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="ManageEmployeeDepartmentService" targetNamespace="http://Impl.services.ws/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://Impl.services.ws/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+<schema xmlns="http://www.w3.org/2001/XMLSchema">
+<import namespace="http://Impl.services.ws/" schemaLocation="manageemployeedepartment_schema1.xsd"/>
+</schema>
+  </wsdl:types>
+  <wsdl:message name="getAllEmployeeDepartments">
+    <wsdl:part name="parameters" element="tns:getAllEmployeeDepartments">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="removeEmployeeDepartmentResponse">
+    <wsdl:part name="parameters" element="tns:removeEmployeeDepartmentResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getEmployeeDepartmentByName">
+    <wsdl:part name="parameters" element="tns:getEmployeeDepartmentByName">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getEmployeeDepartmentByNameResponse">
+    <wsdl:part name="parameters" element="tns:getEmployeeDepartmentByNameResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addEmployeeDepartmentResponse">
+    <wsdl:part name="parameters" element="tns:addEmployeeDepartmentResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllEmployeeDepartmentsResponse">
+    <wsdl:part name="parameters" element="tns:getAllEmployeeDepartmentsResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addEmployeeDepartment">
+    <wsdl:part name="parameters" element="tns:addEmployeeDepartment">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="removeEmployeeDepartment">
+    <wsdl:part name="parameters" element="tns:removeEmployeeDepartment">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ManageEmployeeDepartment">
+    <wsdl:operation name="addEmployeeDepartment">
+      <wsdl:input name="addEmployeeDepartment" message="tns:addEmployeeDepartment">
+    </wsdl:input>
+      <wsdl:output name="addEmployeeDepartmentResponse" message="tns:addEmployeeDepartmentResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getEmployeeDepartmentByName">
+      <wsdl:input name="getEmployeeDepartmentByName" message="tns:getEmployeeDepartmentByName">
+    </wsdl:input>
+      <wsdl:output name="getEmployeeDepartmentByNameResponse" message="tns:getEmployeeDepartmentByNameResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllEmployeeDepartments">
+      <wsdl:input name="getAllEmployeeDepartments" message="tns:getAllEmployeeDepartments">
+    </wsdl:input>
+      <wsdl:output name="getAllEmployeeDepartmentsResponse" message="tns:getAllEmployeeDepartmentsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="removeEmployeeDepartment">
+      <wsdl:input name="removeEmployeeDepartment" message="tns:removeEmployeeDepartment">
+    </wsdl:input>
+      <wsdl:output name="removeEmployeeDepartmentResponse" message="tns:removeEmployeeDepartmentResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ManageEmployeeDepartmentServiceSoapBinding" type="tns:ManageEmployeeDepartment">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="addEmployeeDepartment">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="addEmployeeDepartment">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="addEmployeeDepartmentResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getEmployeeDepartmentByName">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getEmployeeDepartmentByName">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getEmployeeDepartmentByNameResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllEmployeeDepartments">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getAllEmployeeDepartments">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getAllEmployeeDepartmentsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="removeEmployeeDepartment">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="removeEmployeeDepartment">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="removeEmployeeDepartmentResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ManageEmployeeDepartmentService">
+    <wsdl:port name="ManageEmployeeDepartmentPort" binding="tns:ManageEmployeeDepartmentServiceSoapBinding">
+      <soap:address location="http://localhost:9090/ManageEmployeeDepartmentPort"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

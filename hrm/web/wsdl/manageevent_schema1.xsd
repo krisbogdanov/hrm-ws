@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://Impl.services.ws/" elementFormDefault="unqualified" targetNamespace="http://Impl.services.ws/" version="1.0">
+<xs:element name="addEvent" type="tns:addEvent"/>
+<xs:element name="addEventResponse" type="tns:addEventResponse"/>
+<xs:element name="editEventById" type="tns:editEventById"/>
+<xs:element name="editEventByIdResponse" type="tns:editEventByIdResponse"/>
+<xs:element name="getAllEvents" type="tns:getAllEvents"/>
+<xs:element name="getAllEventsResponse" type="tns:getAllEventsResponse"/>
+<xs:element name="getEventByName" type="tns:getEventByName"/>
+<xs:element name="getEventByNameResponse" type="tns:getEventByNameResponse"/>
+<xs:element name="getStudentsRegisteredForEvent" type="tns:getStudentsRegisteredForEvent"/>
+<xs:element name="getStudentsRegisteredForEventResponse" type="tns:getStudentsRegisteredForEventResponse"/>
+<xs:element name="removeEventByName" type="tns:removeEventByName"/>
+<xs:element name="removeEventByNameResponse" type="tns:removeEventByNameResponse"/>
+<xs:complexType name="getEventByName">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg1" type="xs:string"/>
+      <xs:element name="arg2" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="getEventByNameResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:event"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="event">
+    <xs:sequence>
+      <xs:element name="eventCapacity" type="xs:int"/>
+      <xs:element minOccurs="0" name="eventDate" type="xs:dateTime"/>
+      <xs:element name="eventDurationInMinutes" type="xs:int"/>
+      <xs:element name="eventId" type="xs:int"/>
+      <xs:element minOccurs="0" name="eventLocation" type="xs:string"/>
+      <xs:element minOccurs="0" name="eventName" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="removeEventByName">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg1" type="xs:string"/>
+      <xs:element name="arg2" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="removeEventByNameResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="getAllEvents">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element name="arg1" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="getAllEventsResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:event"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="getStudentsRegisteredForEvent">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element name="arg1" type="xs:int"/>
+      <xs:element name="arg2" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="getStudentsRegisteredForEventResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:student"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="student">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="studentEmail" type="xs:string"/>
+      <xs:element name="studentId" type="xs:int"/>
+      <xs:element minOccurs="0" name="studentName" type="xs:string"/>
+      <xs:element minOccurs="0" name="studentRegistered" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="studentSurname" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="addEvent">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg1" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg2" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg3" type="xs:dateTime"/>
+      <xs:element name="arg4" type="xs:int"/>
+      <xs:element name="arg5" type="xs:int"/>
+      <xs:element name="arg6" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="addEventResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="editEventById">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element name="arg1" type="xs:int"/>
+      <xs:element minOccurs="0" name="arg2" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg3" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg4" type="xs:dateTime"/>
+      <xs:element name="arg5" type="xs:int"/>
+      <xs:element name="arg6" type="xs:int"/>
+      <xs:element name="arg7" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="editEventByIdResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

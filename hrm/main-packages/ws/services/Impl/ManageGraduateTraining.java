@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.jws.WebParam;
+import javax.jws.WebService;
+
 import ws.dao.Employee;
 import ws.dao.GraduateTraining;
 import ws.security.AuthorizationManager;
@@ -25,13 +28,14 @@ import ws.utils.Impl.HRConstants;
  * @author Kristiyan
  *
  */
+@WebService(targetNamespace = "http://Impl.services.ws/", portName = "ManageGraduateTrainingPort", serviceName = "ManageGraduateTrainingService")
 public class ManageGraduateTraining implements IManageGraduateTraining {
 	private final Connection connection = DatabaseConnection.getConnection();
 	private final AuthorizationManager authManager = new AuthorizationManagerImpl();
 	private final InputValidationManager validationManager = new InputValidationManagerImpl();
 	@Override
-	public int addGraduateTraining(String token, String location, Date starts,
-			Date ends, boolean secure) {
+	public int addGraduateTraining(@WebParam(name = "arg0") String token, @WebParam(name = "arg1") String location, @WebParam(name = "arg2") Date starts,
+			@WebParam(name = "arg3") Date ends, @WebParam(name = "arg4") boolean secure) {
 		try {
 			if(secure) {
 				if(!validationManager.textValidation(location) ||
@@ -72,7 +76,7 @@ public class ManageGraduateTraining implements IManageGraduateTraining {
 	}
 
 	@Override
-	public int removeGraduateTrainigByLocation(String token, String location, boolean secure) {
+	public int removeGraduateTrainigByLocation(@WebParam(name = "arg0") String token, @WebParam(name = "arg1") String location, @WebParam(name = "arg2") boolean secure) {
 		try {
 			if(secure) {
 				if(!validationManager.textValidation(location)) {
@@ -108,7 +112,7 @@ public class ManageGraduateTraining implements IManageGraduateTraining {
 
 
 	@Override
-	public List<GraduateTraining> getAllGraduateTraining(String token, boolean secure) {
+	public List<GraduateTraining> getAllGraduateTraining(@WebParam(name = "arg0") String token, @WebParam(name = "arg1") boolean secure) {
 		try {
 			if(authManager.isAuthorizedTo(token, HRConstants.READ)) {
 				PreparedStatement select = connection.
@@ -145,8 +149,8 @@ public class ManageGraduateTraining implements IManageGraduateTraining {
 	}
 
 	@Override
-	public GraduateTraining getGraduateTrainingByLocation(String token,
-			String location, boolean secure) {
+	public GraduateTraining getGraduateTrainingByLocation(@WebParam(name = "arg0") String token,
+			@WebParam(name = "arg1") String location, @WebParam(name = "arg2") boolean secure) {
 		try {
 			if(secure) {
 				if(!validationManager.textValidation(location)) {
@@ -178,8 +182,8 @@ public class ManageGraduateTraining implements IManageGraduateTraining {
 	}
 
 	@Override
-	public List<Employee> getEmployeesRegisteredForGradTraining(String token,
-			int gradTrainingId, boolean secure) {
+	public List<Employee> getEmployeesRegisteredForGradTraining(@WebParam(name = "arg0") String token,
+			@WebParam(name = "arg1") int gradTrainingId, @WebParam(name = "arg2") boolean secure) {
 		try {
 			if(secure) {
 				if(!validationManager.integerValidation(gradTrainingId)) {

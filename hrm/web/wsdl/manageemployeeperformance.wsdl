@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="ManageEmployeePerformanceService" targetNamespace="http://Impl.services.ws/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://Impl.services.ws/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+<schema xmlns="http://www.w3.org/2001/XMLSchema">
+<import namespace="http://Impl.services.ws/" schemaLocation="manageemployeeperformance_schema1.xsd"/>
+</schema>
+  </wsdl:types>
+  <wsdl:message name="getEmployeePerformanceByEmployeeId">
+    <wsdl:part name="parameters" element="tns:getEmployeePerformanceByEmployeeId">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="removeEmployeePerformanceByPerfId">
+    <wsdl:part name="parameters" element="tns:removeEmployeePerformanceByPerfId">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addEmployeePerformanceResponse">
+    <wsdl:part name="parameters" element="tns:addEmployeePerformanceResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="removeEmployeePerformanceByPerfIdResponse">
+    <wsdl:part name="parameters" element="tns:removeEmployeePerformanceByPerfIdResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addEmployeePerformance">
+    <wsdl:part name="parameters" element="tns:addEmployeePerformance">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="editEmployeePerformance">
+    <wsdl:part name="parameters" element="tns:editEmployeePerformance">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="editEmployeePerformanceResponse">
+    <wsdl:part name="parameters" element="tns:editEmployeePerformanceResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getEmployeePerformanceByEmployeeIdResponse">
+    <wsdl:part name="parameters" element="tns:getEmployeePerformanceByEmployeeIdResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ManageEmployeePerformance">
+    <wsdl:operation name="removeEmployeePerformanceByPerfId">
+      <wsdl:input name="removeEmployeePerformanceByPerfId" message="tns:removeEmployeePerformanceByPerfId">
+    </wsdl:input>
+      <wsdl:output name="removeEmployeePerformanceByPerfIdResponse" message="tns:removeEmployeePerformanceByPerfIdResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getEmployeePerformanceByEmployeeId">
+      <wsdl:input name="getEmployeePerformanceByEmployeeId" message="tns:getEmployeePerformanceByEmployeeId">
+    </wsdl:input>
+      <wsdl:output name="getEmployeePerformanceByEmployeeIdResponse" message="tns:getEmployeePerformanceByEmployeeIdResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="editEmployeePerformance">
+      <wsdl:input name="editEmployeePerformance" message="tns:editEmployeePerformance">
+    </wsdl:input>
+      <wsdl:output name="editEmployeePerformanceResponse" message="tns:editEmployeePerformanceResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addEmployeePerformance">
+      <wsdl:input name="addEmployeePerformance" message="tns:addEmployeePerformance">
+    </wsdl:input>
+      <wsdl:output name="addEmployeePerformanceResponse" message="tns:addEmployeePerformanceResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ManageEmployeePerformanceServiceSoapBinding" type="tns:ManageEmployeePerformance">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="removeEmployeePerformanceByPerfId">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="removeEmployeePerformanceByPerfId">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="removeEmployeePerformanceByPerfIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getEmployeePerformanceByEmployeeId">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getEmployeePerformanceByEmployeeId">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getEmployeePerformanceByEmployeeIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="editEmployeePerformance">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="editEmployeePerformance">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="editEmployeePerformanceResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addEmployeePerformance">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="addEmployeePerformance">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="addEmployeePerformanceResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ManageEmployeePerformanceService">
+    <wsdl:port name="ManageEmployeePerformancePort" binding="tns:ManageEmployeePerformanceServiceSoapBinding">
+      <soap:address location="http://localhost:9090/ManageEmployeePerformancePort"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

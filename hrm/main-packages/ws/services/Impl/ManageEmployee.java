@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.jws.WebParam;
+import javax.jws.WebService;
+
 
 import ws.dao.BankDetails;
 import ws.dao.Employee;
@@ -26,16 +29,17 @@ import ws.utils.Impl.HRConstants;
  * @author Kristiyan
  *
  */
+@WebService(targetNamespace = "http://Impl.services.ws/", portName = "ManageEmployeePort", serviceName = "ManageEmployeeService")
 public class ManageEmployee implements IManageEmployee {
 
 	private final Connection connection = DatabaseConnection.getConnection();
 	private final AuthorizationManager authManager = new AuthorizationManagerImpl();
 	private final InputValidationManager validationManager = new InputValidationManagerImpl();
 	@Override
-	public int addEmployee(String token, String employeeName,
-			String employeeSurname, String employeeEmail,
-			String employeeAddress, String employeeSSN, String employeePhone,
-			int employeeDepartment, String employeeRole, String employeeUsername, boolean secure) {
+	public int addEmployee(@WebParam(name = "arg0") String token, @WebParam(name = "arg1") String employeeName,
+			@WebParam(name = "arg2") String employeeSurname, @WebParam(name = "arg3") String employeeEmail,
+			@WebParam(name = "arg4") String employeeAddress, @WebParam(name = "arg5") String employeeSSN, @WebParam(name = "arg6") String employeePhone,
+			@WebParam(name = "arg7") int employeeDepartment, @WebParam(name = "arg8") String employeeRole, @WebParam(name = "arg9") String employeeUsername, @WebParam(name = "arg10") boolean secure) {
 		try {
 			if(secure) {
 				if(!validationManager.textValidation(employeeName) || 
@@ -87,7 +91,7 @@ public class ManageEmployee implements IManageEmployee {
 	}
 
 	@Override
-	public int removeEmployeeById(String token, int employeeId, boolean secure) {
+	public int removeEmployeeById(@WebParam(name = "arg0") String token, @WebParam(name = "arg1") int employeeId, @WebParam(name = "arg2") boolean secure) {
 		try {
 			if(secure) {
 				if(!validationManager.integerValidation(employeeId)) {
@@ -119,10 +123,10 @@ public class ManageEmployee implements IManageEmployee {
 	}
 
 	@Override
-	public int editEmployeeById(String token, int employeeId,
-			String employeeName, String employeeSurname, String employeeEmail,
-			String employeeAddress, String employeeSSN, String employeePhone,
-			int employeeDepartment, String employeeUsername, String employeeRole, boolean secure) {
+	public int editEmployeeById(@WebParam(name = "arg0") String token, @WebParam(name = "arg1") int employeeId,
+			@WebParam(name = "arg2") String employeeName, @WebParam(name = "arg3") String employeeSurname, @WebParam(name = "arg4") String employeeEmail,
+			@WebParam(name = "arg5") String employeeAddress, @WebParam(name = "arg6") String employeeSSN, @WebParam(name = "arg7") String employeePhone,
+			@WebParam(name = "arg8") int employeeDepartment, @WebParam(name = "arg9") String employeeUsername, @WebParam(name = "arg10") String employeeRole, @WebParam(name = "arg11") boolean secure) {
 		try {
 			if(secure) {
 				if(!validationManager.textValidation(employeeName) || 
@@ -169,8 +173,8 @@ public class ManageEmployee implements IManageEmployee {
 	}
 
 	@Override
-	public int changeEmployeePassword(String token, int employeeId,
-			String oldPassword, String newPassword, boolean secure) {
+	public int changeEmployeePassword(@WebParam(name = "arg0") String token, @WebParam(name = "arg1") int employeeId,
+			@WebParam(name = "arg2") String oldPassword, @WebParam(name = "arg3") String newPassword, @WebParam(name = "arg4") boolean secure) {
 		try {
 			if(secure) {
 				if(!validationManager.integerValidation(employeeId) ||
@@ -210,7 +214,7 @@ public class ManageEmployee implements IManageEmployee {
 	}
 
 	@Override
-	public Employee getEmployeeByUsername(String token, String employeeUsername, boolean secure) {
+	public Employee getEmployeeByUsername(@WebParam(name = "arg0") String token, @WebParam(name = "arg1") String employeeUsername, @WebParam(name = "arg2") boolean secure) {
 		try {
 			if(secure) {
 				if(!validationManager.usernameValidation(employeeUsername)) {
@@ -252,7 +256,7 @@ public class ManageEmployee implements IManageEmployee {
 	}
 
 	@Override
-	public List<Employee> searchEmployeeByName(String token, String searchPhrase, boolean secure) {
+	public List<Employee> searchEmployeeByName(@WebParam(name = "arg0") String token, @WebParam(name = "arg1") String searchPhrase, @WebParam(name = "arg2") boolean secure) {
 		try {
 			if(authManager.isAuthorizedTo(token, HRConstants.READ)) {
 				String sql = "SELECT * FROM hr.Employee WHERE employeeName LIKE '%"+searchPhrase+"%' " +
@@ -283,7 +287,7 @@ public class ManageEmployee implements IManageEmployee {
 	}
 
 	@Override
-	public List<Employee> getAllEmployees(String token, boolean secure) {
+	public List<Employee> getAllEmployees(@WebParam(name = "arg0") String token, @WebParam(name = "arg1") boolean secure) {
 		try {
 			if(authManager.isAuthorizedTo(token, HRConstants.READ)) {
 				PreparedStatement select = connection.
@@ -327,8 +331,8 @@ public class ManageEmployee implements IManageEmployee {
 		return list;
 	}
 	@Override
-	public int registerEmployeeForGradTraining(String token, int gradTrainingId,
-			int employeeId, boolean secure) {
+	public int registerEmployeeForGradTraining(@WebParam(name = "arg0") String token, @WebParam(name = "arg1") int gradTrainingId,
+			@WebParam(name = "arg2") int employeeId, @WebParam(name = "arg3") boolean secure) {
 		try {
 			if(secure) {
 				if(!validationManager.integerValidation(employeeId) ||
@@ -380,8 +384,8 @@ public class ManageEmployee implements IManageEmployee {
 		}
 	}
 	@Override
-	public int unregisterEmployeeFromGradTraining(String token, int gradTrainingId,
-			int employeeId, boolean secure) {
+	public int unregisterEmployeeFromGradTraining(@WebParam(name = "arg0") String token, @WebParam(name = "arg1") int gradTrainingId,
+			@WebParam(name = "arg2") int employeeId, @WebParam(name = "arg3") boolean secure) {
 		try {
 			if(secure) {
 				if(!validationManager.integerValidation(employeeId) ||
@@ -411,8 +415,8 @@ public class ManageEmployee implements IManageEmployee {
 	}
 
 	@Override
-	public int addBankDetails(String token, int employeeId, String bankName,
-			int accountNumber, int sortCode, boolean secure) {
+	public int addBankDetails(@WebParam(name = "arg0") String token, @WebParam(name = "arg1") int employeeId, @WebParam(name = "arg2") String bankName,
+			@WebParam(name = "arg3") int accountNumber, @WebParam(name = "arg4") int sortCode, @WebParam(name = "arg5") boolean secure) {
 		try {
 			if(secure) {
 				if(!validationManager.integerValidation(employeeId) ||
@@ -452,7 +456,7 @@ public class ManageEmployee implements IManageEmployee {
 	}
 
 	@Override
-	public int removeBankDetailsByEmployeeId(String token, int employeeId, boolean secure) {
+	public int removeBankDetailsByEmployeeId(@WebParam(name = "arg0") String token, @WebParam(name = "arg1") int employeeId, @WebParam(name = "arg2") boolean secure) {
 		try {
 			if(secure) {
 				if(!validationManager.integerValidation(employeeId)) {
@@ -481,8 +485,8 @@ public class ManageEmployee implements IManageEmployee {
 	}
 
 	@Override
-	public int editBankDetailsByEmployeeId(String token, int employeeId,
-			String bankName, int accountNumber, int sortCode, boolean secure) {
+	public int editBankDetailsByEmployeeId(@WebParam(name = "arg0") String token, @WebParam(name = "arg1") int employeeId,
+			@WebParam(name = "arg2") String bankName, @WebParam(name = "arg3") int accountNumber, @WebParam(name = "arg4") int sortCode, @WebParam(name = "arg5") boolean secure) {
 		try {
 			if(secure) {
 				if(!validationManager.integerValidation(employeeId) ||
@@ -517,7 +521,7 @@ public class ManageEmployee implements IManageEmployee {
 	}
 
 	@Override
-	public BankDetails getBankDetailsByEmployeeId(String token, int employeeId, boolean secure) {
+	public BankDetails getBankDetailsByEmployeeId(@WebParam(name = "arg0") String token, @WebParam(name = "arg1") int employeeId, @WebParam(name = "arg2") boolean secure) {
 		try {
 			if(secure) {
 				if(!validationManager.integerValidation(employeeId)) {
@@ -553,7 +557,7 @@ public class ManageEmployee implements IManageEmployee {
 	}
 
 	@Override
-	public Employee getEmployeeById(String token, int employeeId, boolean secure) {
+	public Employee getEmployeeById(@WebParam(name = "arg0") String token, @WebParam(name = "arg1") int employeeId, @WebParam(name = "arg2") boolean secure) {
 		try {
 			if(secure) {
 				if(!validationManager.integerValidation(employeeId)) {
