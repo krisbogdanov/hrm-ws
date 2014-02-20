@@ -583,6 +583,14 @@ public class ManageEmployee implements IManageEmployee {
 							result.getInt(HRConstants.EMPLOYEE_DEPARTMENT), 
 							result.getString(HRConstants.EMPLOYEE_PHONE),
 							result.getString(HRConstants.EMPLOYEE_ROLE));
+					if(!authManager.isAuthorizedTo(token, HRConstants.WRITE)) {
+						if(!authManager.isTheOwnerOf(token, employee.getEmployeeId())) {
+							employee.setEmployeePassword(HRConstants.EMPTY_STRING);
+							employee.setEmployeeSSN(HRConstants.EMPTY_STRING);
+							employee.setEmployeeUsername(HRConstants.EMPTY_STRING);
+							employee.setEmployeeAddress(HRConstants.EMPTY_STRING);
+						}
+					}
 					select.close();
 					return employee;
 				} else {
