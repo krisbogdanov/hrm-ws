@@ -49,7 +49,7 @@ public class ManageGraduateTrainingTests extends TestCase {
 	}
 	@Test
 	public void testGetEmployeesRegisteredForGradTraining() {
-		List<Employee> list = manager.getEmployeesRegisteredForGradTraining(readToken, 6, false);
+		List<Employee> list = manager.getEmployeesRegisteredForGradTraining(readToken, 3, false);
 		assertNotNull(list);
 		System.out.println("Employees: " + list.toString());
 	}

@@ -263,6 +263,7 @@ public class ManageEmployee implements IManageEmployee {
 						"OR employeeSurname LIKE '%"+searchPhrase+"%';"; //very wrong
 				PreparedStatement select = null;
 				if(secure) {
+					searchPhrase = "%"+searchPhrase+"%";
 					select = connection.prepareStatement(HRConstants.SEARCH_EMPLOYEE_BY_NAME);
 					select.setString(1, searchPhrase);
 					select.setString(2, searchPhrase);

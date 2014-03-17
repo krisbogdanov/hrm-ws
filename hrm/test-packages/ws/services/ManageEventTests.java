@@ -40,14 +40,14 @@ public class ManageEventTests extends TestCase {
 	}
 	@Test
 	public void testEditEvent() {
-		int failToEdit = manager.editEventById(readToken, 3, "Presentation", "London", date, 200, 300, false);
+		int failToEdit = manager.editEventById(readToken, 1, "Presentation", "London", date, 200, 300, false);
 		assertEquals(0, failToEdit);
-		int edit = manager.editEventById(writeToken, 3, "Presentation", "London", date, 200, 300, false);
+		int edit = manager.editEventById(writeToken, 1, "Presentation", "London", date, 200, 300, false);
 		assertEquals(1, edit);
 	}
 	@Test
 	public void testGetRegisteredStudentsForEvent() {
-		List<Student> list = manager.getStudentsRegisteredForEvent(readToken, 3, false);
+		List<Student> list = manager.getStudentsRegisteredForEvent(readToken, 1, false);
 		assertNotNull(list);
 		System.out.println("Students: " + list.toString());
 	}

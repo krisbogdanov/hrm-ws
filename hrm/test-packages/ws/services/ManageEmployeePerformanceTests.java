@@ -16,29 +16,29 @@ public class ManageEmployeePerformanceTests extends TestCase {
 	
 	@Test
 	public void testGetEmpPerfById() {
-		List<EmployeePerformance> listWithWritePerm = manager.getEmployeePerformanceByEmployeeId(writeToken, 4, false);
+		List<EmployeePerformance> listWithWritePerm = manager.getEmployeePerformanceByEmployeeId(writeToken, 1, false);
 		assertNotNull(listWithWritePerm);
 		System.out.println("WRITE PERM:  " + listWithWritePerm.toString());
-		List<EmployeePerformance> listWithReadPerm = manager.getEmployeePerformanceByEmployeeId(readToken, 5, false);
+		List<EmployeePerformance> listWithReadPerm = manager.getEmployeePerformanceByEmployeeId(readToken, 2, false);
 		assertNull(listWithReadPerm);
-		List<EmployeePerformance> listWithOwnerPerm = manager.getEmployeePerformanceByEmployeeId(readToken, 4, false);
+		List<EmployeePerformance> listWithOwnerPerm = manager.getEmployeePerformanceByEmployeeId(readToken, 1, false);
 		assertNotNull(listWithWritePerm);
 		System.out.println("OWNER PERM:  " + listWithOwnerPerm.toString());
 	}
 	@Test
 	public void testEditPerformance() {
-		int edit = manager.editEmployeePerformance(writeToken, 1, "Edited", false);
+		int edit = manager.editEmployeePerformance(writeToken, 3, "Edited", false);
 		assertEquals(1, edit);
-		int failEdit = manager.editEmployeePerformance(readToken, 1, "Fail", false);
+		int failEdit = manager.editEmployeePerformance(readToken, 3, "Fail", false);
 		assertEquals(0, failEdit);
 	}
 	@Test
 	public void testAddPerfThenRemoveIt() {
-		int add = manager.addEmployeePerformance(writeToken, 6, "JUnit test", 2015, false);
+		int add = manager.addEmployeePerformance(writeToken, 3, "JUnit test", 2015, false);
 		assertEquals(1, add);
-		int failAdd = manager.addEmployeePerformance(readToken, 6, "fail test", 2015, false);
+		int failAdd = manager.addEmployeePerformance(readToken, 3, "fail test", 2015, false);
 		assertEquals(0, failAdd);
-		List<EmployeePerformance> listWithWritePerm = manager.getEmployeePerformanceByEmployeeId(writeToken, 6, false);
+		List<EmployeePerformance> listWithWritePerm = manager.getEmployeePerformanceByEmployeeId(writeToken, 3, false);
 		assertNotNull(listWithWritePerm);
 		Iterator<EmployeePerformance> it = listWithWritePerm.iterator();
 		while(it.hasNext()) {

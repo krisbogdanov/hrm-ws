@@ -3,7 +3,7 @@ package ws.services;
 
 import java.util.List;
 
-import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Test;
 
 import ws.dao.BankDetails;
@@ -27,17 +27,17 @@ public class ManageEmployeeTests extends TestCase {
 	}
 	@Test
 	public void testEditEmployee() {
-		int result = manager.editEmployeeById(token, 4, "Kris" , 
+		int result = manager.editEmployeeById(token, 1, "Kris" , 
 				"Bogdanov", "kris.b@hr.com", "320 plymouth grove", "SN-12-34-56-B", "0756145856182", 1, "Manager", "krisb", false);
 		assertEquals(1, result);
 	}
 	
 	@Test
 	public void testGetEmployeeByIdAndThenChangePassword() {
-		Employee emp = manager.getEmployeeById("readToken", 4, false);
+		Employee emp = manager.getEmployeeById("readToken", 1, false);
 		assertNotNull(emp);
 		String randomPass = RandomStringUtils.randomAlphabetic(10);
-		int result = manager.changeEmployeePassword("readToken", 4, emp.getEmployeePassword(), randomPass, false);
+		int result = manager.changeEmployeePassword("readToken", 1, emp.getEmployeePassword(), randomPass, false);
 		assertEquals(1, result);
 	}
 	
@@ -49,15 +49,15 @@ public class ManageEmployeeTests extends TestCase {
 	
 	@Test
 	public void testGetBankDetailsByEmpId() {
-		BankDetails details = manager.getBankDetailsByEmployeeId(token, 4, false);
+		BankDetails details = manager.getBankDetailsByEmployeeId(token, 1, false);
 		assertNotNull(details);
 	}
 	
 	@Test
 	public void testEditBankDetailsByEmpId() {
-		int result = manager.editBankDetailsByEmployeeId(token, 4, "RBS", 124512541, 413512, false);
+		int result = manager.editBankDetailsByEmployeeId(token, 1, "RBS", 124512541, 413512, false);
 		assertEquals(1, result);
-		int resultNegative = manager.editBankDetailsByEmployeeId("readToken", 6, "RBS", 124512541, 413512, false);
+		int resultNegative = manager.editBankDetailsByEmployeeId("readToken", 3, "RBS", 124512541, 413512, false);
 		assertEquals(0, resultNegative);
 	}
 	
@@ -80,9 +80,9 @@ public class ManageEmployeeTests extends TestCase {
 	
 	@Test
 	public void testRegisteringForAndUnregisteringFromGradTraining() {
-		int result = manager.registerEmployeeForGradTraining(token, 6, 4, false);
+		int result = manager.registerEmployeeForGradTraining(token, 1, 2, false);
 		assertEquals(1, result);
-		int unregister = manager.unregisterEmployeeFromGradTraining(token, 6, 4, false);
+		int unregister = manager.unregisterEmployeeFromGradTraining(token, 1, 2, false);
 		assertEquals(1, unregister);
 	}
 	
